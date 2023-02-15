@@ -3,8 +3,8 @@
 ## Group T0xG0y
 | Name             | Number    | E-Mail             |
 | ---------------- | --------- | ------------------ |
-| John Doe         | 201901010 | ...                |
-| Jane Doe         | 201901011 | ...                |
+| Carlos Sousa         | 202005954 | up202005954@edu.fc.up.pt             |
+| Rui Soares         | 202103631 | up202103631@edu.fe.up.pt                |
 
 ----
 
