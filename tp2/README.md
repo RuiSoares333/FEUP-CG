@@ -17,5 +17,9 @@
 | :----------:|
 | ![Exercise 2.2](screenshots/cg-t03g01-tp2-02.png) | 
 
+- In exercise 3, it was trivial
 
+| **Exercise 3**|
+| :----------:|
+| ![Exercise 2.3](screenshots/cg-t03g01-tp2-03.png) |
 
