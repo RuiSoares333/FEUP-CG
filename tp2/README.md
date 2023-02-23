@@ -2,20 +2,20 @@
 
 ## Group T03G01
 
-## TP 1 Notes
+## TP 2 Notes
 
-- In exercise 1 we observed that the order of the vertice references are important in order to achieve the correct result
+- In exercise 1, at the beginning it was difficult to visualize the faces of the cube because we were drawing the triangles counterclockwise.
 
-| **Exercise 1.1**| **Exercise 1.2** |
-| :----------:| :-------------------: |
-| ![Exercise 1.1](screenshots/cg-t03g01-tp1-00.png) |![Exercise 1.2](screenshots/cg-t03g01-tp1-01.png) |
+| **Exercise 1**|
+| :----------:| 
+| ![Exercise 2.1](screenshots/cg-t03g01-tp2-01.png) |
 
 
-- In exercise 2 we observed that the order of the vertice references are important in order to achieve the correct result
+- In exercise 2, moving the cube to the requested position was a challenge, because we were initially doing the calculations wrong
 
-| **Exercise 2.1**| **Exercise 2.2** |
-| :----------:| :-------------------------------: |
-| ![Exercise 2.1](screenshots/cg-t03g01-tp1-02.png) |![Exercise 2.2](screenshots/cg-t03g01-tp1-03.png)|
+| **Exercise 2**|
+| :----------:|
+| ![Exercise 2.2](screenshots/cg-t03g01-tp2-02.png) | 
 
 
 
