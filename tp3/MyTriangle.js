@@ -23,8 +23,8 @@ export class MyTriangle extends CGFobject {
 
 		//Counter-clockwise reference of vertices
 		this.indices = [
-			0, 1, 2,
-			3, 4, 5,
+			2, 0, 1,
+			4, 3, 5,
 		];
 
 		this.normals = [
