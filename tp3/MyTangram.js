@@ -1,108 +1,178 @@
-import {CGFobject} from '../lib/CGF.js';
+import { CGFobject, CGFappearance } from '../lib/CGF.js';
 import { MyDiamond } from "./MyDiamond.js";
 import { MyTriangle } from "./MyTriangle.js";
-import { MyTriangleSmall } from "./MyTriangleSmall.js";
-import { MyTriangleBig } from "./MyTriangleBig.js";
-import { MyParalelogram } from "./MyParalelogram.js";
-
+import { MyParallelogram} from "./MyParallelogram.js";
+import { MyTriangleSmall} from "./MyTriangleSmall.js";
+import { MyTriangleBig} from "./MyTriangleBig.js";
 /**
  * MyTangram
  * @constructor
  * @param scene - Reference to MyScene object
  */
 export class MyTangram extends CGFobject {
-	constructor(scene) {
-		super(scene);
+        constructor(scene) {
+                super(scene);
+                this.initMaterials();
+        }
 
-        //Initialize scene objects
-        this.greenDiamond = new MyDiamond(this.scene);
-        this.blueTriangle = new MyTriangle(this.scene);
-        this.orangeTriangle = new MyTriangleBig(this.scene);
-        this.yellowParallelogram = new MyParalelogram(this.scene);
-        this.pinkTriangle = new MyTriangleBig(this.scene);
-        this.redTriangle = new MyTriangle(this.scene);
-        this.purpleTriangle = new MyTriangle(this.scene);
-	}
+        initBuffers() {
+                this.initGLBuffers();
+        }
 
-    display(){
-        
-        var tra1 = [
-            1, 0, 0, 0,
-            0, 1, 0, 0,
-            0, 0, 1, 0,
-            3.5, 7.1, 2.5, 1
-          ]
-          
-          // ---- BEGIN Primitive drawing section
-          this.scene.pushMatrix();
-          this.scene.multMatrix(tra1);
-          this.scene.setDiffuse(0,1,0,0);
-          this.greenDiamond.display();
-          this.scene.popMatrix();
-          
-      
-          this.scene.pushMatrix();
-          this.scene.translate(4.5, 5, 2.5);
-          this.scene.scale(1.4, 1.4, 0);
-          this.scene.setDiffuse(0, 155/255, 1, 0);
-          this.blueTriangle.display();
-          this.scene.popMatrix();
-      
-      
-          this.scene.pushMatrix();
-          this.scene.translate(3.05, 4.2, 2.5);
-          this.scene.rotate(90*Math.PI/180, 0, 0, 1);
-          this.scene.scale(1, 1, 0);
-          this.scene.setDiffuse(1, 155/255, 0, 0);
-          this.orangeTriangle.display();
-          this.scene.popMatrix();
-      
-          this.scene.pushMatrix();
-          this.scene.translate(4.5, 0.75, 2.5);
-          this.scene.scale(-1, 1, 0);
-          this.scene.rotate(45*Math.PI/180, 0, 0, 1);
-          this.scene.setDiffuse(1, 1, 0, 0);
-          this.yellowParallelogram.display();
-          this.scene.popMatrix();
-      
-      
-          this.scene.pushMatrix();
-          this.scene.translate(1.8, 2.2, 2.5);
-          this.scene.scale(0.6, 0.6, 0);
-          this.scene.setDiffuse(1, 155/255, 207/255, 0);
-          this.pinkTriangle.display();
-          this.scene.popMatrix();
-      
+        updateBuffers() {
 
-          this.scene.pushMatrix();
-          this.scene.translate(0.4, 2.1, 2.5);
-          this.scene.scale(0.7, 0.7, 0);
-          this.scene.rotate(-90*Math.PI/180, 0, 0, 1);
-          this.scene.setDiffuse(1, 0, 0, 0);
-          this.redTriangle.display();
-          this.scene.popMatrix();
-      
-      
-          this.scene.pushMatrix();
-          this.scene.translate(4.5, 0.7, 2.5);
-          this.scene.scale(0.7, 0.7, 0);
-          this.scene.setDiffuse(150/255, 80/255, 190/255, 0);
-          this.purpleTriangle.display();
-          this.scene.popMatrix();
-          // ---- END Primitive drawing section
-    }
+        }
 
-    /**
-     * Called when user interacts with GUI to change object's complexity.
-     * @param {integer} complexity - changes number of slices
-     */
-    updateBuffers(complexity){
-        this.slices = 3 + Math.round(9 * complexity); //complexity varies 0-1, so slices varies 3-12
+        initMaterials() {
+                // Red
+                this.red = new CGFappearance(this.scene);
+                this.red.setAmbient(0.1, 0.1, 0.1, 1);
+                this.red.setDiffuse(1, 0, 0, 1);
+                this.red.setSpecular(1, 1, 1, 0);
+                this.red.setShininess(10.0);
 
-        // reinitialize buffers
-        this.initBuffers();
-        this.initNormalVizBuffers();
-    }
-	
+                // Yellow
+                this.yellow = new CGFappearance(this.scene);
+                this.yellow.setAmbient(0.1, 0.1, 0.1, 1);
+                this.yellow.setDiffuse(1, 1, 0, 1);
+                this.yellow.setSpecular(1, 1, 1, 0);
+                this.yellow.setShininess(10.0);
+
+                // Green
+                this.green = new CGFappearance(this.scene);
+                this.green.setAmbient(0.1, 0.1, 0.1, 1);
+                this.green.setDiffuse(0, 1, 0, 1);
+                this.green.setSpecular(1, 1, 1, 0);
+                this.green.setShininess(10.0);
+
+                // Blue
+                this.blue = new CGFappearance(this.scene);
+                this.blue.setAmbient(0.1, 0.1, 0.1, 1);
+                this.blue.setDiffuse(0, 0.4, 0.85, 1);
+                this.blue.setSpecular(1, 1, 1, 0);
+                this.blue.setShininess(10.0);
+
+                // Pink
+                this.pink = new CGFappearance(this.scene);
+                this.pink.setAmbient(0.1, 0.1, 0.1, 1);
+                this.pink.setDiffuse(1, 0.4, 0.6, 1);
+                this.pink.setSpecular(1, 1, 1, 0);
+                this.pink.setShininess(10.0);
+
+                // Orange
+                this.orange = new CGFappearance(this.scene);
+                this.orange.setAmbient(0.1, 0.1, 0.1, 1);
+                this.orange.setDiffuse(1, 0.5, 0, 1);
+                this.orange.setSpecular(1, 1, 1, 0);
+                this.orange.setShininess(10.0);
+
+                // Purple
+                this.purple = new CGFappearance(this.scene);
+                this.purple.setAmbient(0.1, 0.1, 0.1, 1);
+                this.purple.setDiffuse(0.58, 0, 0.827, 1);
+                this.purple.setSpecular(1, 1, 1, 0);
+                this.purple.setShininess(10.0);
+        }
+
+        display() {
+
+                this.scene.pushMatrix();
+
+                var angle = 35 * Math.PI / 180;
+
+                this.scene.translate(-2.2, 2.7, 0);
+                this.scene.rotate(angle, 0, 0, 1);
+                //this.green.apply();
+                this.scene.diamond.display();
+
+                this.scene.popMatrix();
+
+                //-----------------------------------------------------
+
+                this.scene.pushMatrix();
+
+                this.scene.translate(-2.5, 0, 0);
+                this.blue.apply();
+                this.scene.blueTriangle.display();
+
+                this.scene.popMatrix();
+
+                //-----------------------------------------------------
+
+                this.scene.pushMatrix();
+
+                angle = 180 * Math.PI / 180;
+
+                this.scene.translate(-1, 0, 0);
+                this.scene.rotate(angle, 0, 0, 1);
+                this.orange.apply();
+                this.scene.orangeTriangle.display();
+
+                this.scene.popMatrix();
+
+                //-----------------------------------------------------
+
+                this.scene.pushMatrix();
+
+                angle = 90 * Math.PI / 180;
+
+                this.scene.rotate(angle, 0, 0, 1);
+                this.yellow.apply();
+                this.scene.yellowParallelogram.display();
+
+                this.scene.popMatrix();
+
+                //-----------------------------------------------------
+
+                this.scene.pushMatrix();
+
+                this.scene.translate(1.5, 0, 0);
+                this.scene.scale(1.5, 1.5, 1);
+                this.pink.apply();
+                this.scene.triangleSmall.display();
+
+                this.scene.popMatrix();
+
+                //-----------------------------------------------------
+
+                this.scene.pushMatrix();
+
+                angle = 180 * Math.PI / 180;
+
+                this.scene.translate(3.4, 0, 0);
+                this.scene.rotate(angle, 0, 0, 1);
+                this.purple.apply();
+                this.scene.triangleSmall.display();
+
+                this.scene.popMatrix();
+
+                //-----------------------------------------------------
+
+                this.scene.pushMatrix();
+
+                angle = 270 * Math.PI / 180;
+
+                this.scene.rotate(angle, 0, 0, 1);
+                this.scene.translate(-3.5, 1, 0);
+                this.red.apply();
+                this.scene.triangleSmall.display();
+
+                this.scene.popMatrix();
+        }
+
+        enableNormalViz() {
+                this.scene.blueTriangleBig.enableNormalViz();
+                this.scene.diamond.enableNormalViz();
+                this.scene.orangeTriangle.enableNormalViz();
+                this.scene.triangleSmall.enableNormalViz();
+                this.scene.yellowParallelogram.enableNormalViz();
+        }
+
+        disableNormalViz() {
+                this.scene.blueTriangle.disableNormalViz();
+                this.scene.diamond.disableNormalViz();
+                this.scene.orangeTriangle.disableNormalViz();
+                this.scene.triangleSmall.disableNormalViz();
+                this.scene.yellowParallelogram.disableNormalViz();
+        }
 }
-
