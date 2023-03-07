@@ -2,6 +2,7 @@ import { CGFscene, CGFcamera, CGFaxis } from "../lib/CGF.js";
 import { MyTangram } from "./MyTangram.js";
 import { MyUnitCube } from "./MyUnitCube.js";
 import { MyUnitCubeQuad } from "./MyUnitCubeQuad.js";
+
 /**
  * MyScene
  * @constructor
