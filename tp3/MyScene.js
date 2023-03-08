@@ -2,13 +2,8 @@ import { CGFscene, CGFcamera, CGFaxis, CGFappearance } from "../lib/CGF.js";
 import { MyPyramid } from "./MyPyramid.js";
 import { MyCone } from "./MyCone.js";
 import { MyPlane } from "./MyPlane.js";
-import { MyTangram } from "./MyTangram.js"
-import { MyUnitCube } from "./MyUnitCube.js"
-import { MyDiamond } from "./MyDiamond.js";
-import { MyTriangle } from "./MyTriangle.js";
-import { MyParallelogram} from "./MyParallelogram.js";
-import { MyTriangleSmall} from "./MyTriangleSmall.js";
-import { MyTriangleBig} from "./MyTriangleBig.js";
+import { MyTangram } from "./MyTangram.js";
+import { MyUnitCube } from "./MyUnitCube.js";
 import { MyPrism } from "./MyPrism.js";
 import { MyCilinder } from "./MyCilinder.js";
 
@@ -35,12 +30,6 @@ export class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
 
         //Initialize scene objects
-        this.triangleSmall = new MyTriangleSmall(this);
-        this.blueTriangle = new MyTriangleBig(this);
-        this.orangeTriangle = new MyTriangleBig(this);
-        this.diamond = new MyDiamond(this);
-        this.triangle = new MyTriangle(this);
-        this.yellowParallelogram = new MyParallelogram(this);
         this.axis = new CGFaxis(this);
         this.plane = new MyPlane(this, 5);
         this.cone = new MyCone(this, 3, 1);
@@ -56,12 +45,12 @@ export class MyScene extends CGFscene {
         this.objectIDs = { 'Plane': 0 , 'Pyramid': 1, 'Cone': 2, 'Tangram': 3, 'Unit Cube': 4, 'Prism': 5, 'Cilinder': 6 };
 
         //Other variables connected to MyInterface
-        this.selectedObject = 0;
+        this.selectedObject = 3;
         this.selectedMaterial = 0;
         this.displayAxis = true;
         this.displayNormals = false;
         this.objectComplexity = 0.5;
-        this.scaleFactor = 2.0;
+        this.scaleFactor = 0.5;
         this.customGlobalAmbientLight=0.3;
     }
 

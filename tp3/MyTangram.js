@@ -1,9 +1,9 @@
 import { CGFobject, CGFappearance } from '../lib/CGF.js';
 import { MyDiamond } from "./MyDiamond.js";
 import { MyTriangle } from "./MyTriangle.js";
-import { MyParallelogram} from "./MyParallelogram.js";
-import { MyTriangleSmall} from "./MyTriangleSmall.js";
-import { MyTriangleBig} from "./MyTriangleBig.js";
+import { MyParallelogram } from "./MyParallelogram.js";
+import { MyTriangleBig } from "./MyTriangleBig.js";
+import { MyTriangleSmall } from "./MyTriangleSmall.js";
 /**
  * MyTangram
  * @constructor
@@ -13,6 +13,13 @@ export class MyTangram extends CGFobject {
         constructor(scene) {
                 super(scene);
                 this.initMaterials();
+
+                //Initialize scene objects
+                this.diamond = new MyDiamond(scene);
+                this.triangle = new MyTriangle(scene);
+                this.triangleBig = new MyTriangleBig(scene);
+                this.triangleSmall = new MyTriangleSmall(scene);
+                this.parallelogram = new MyParallelogram(scene);
         }
 
         initBuffers() {
@@ -74,105 +81,85 @@ export class MyTangram extends CGFobject {
                 this.purple.setShininess(10.0);
         }
 
-        display() {
-
+        display(){
+        
+                var tra1 = [
+                    1, 0, 0, 0,
+                    0, 1, 0, 0,
+                    0, 0, 1, 0,
+                    2.5, 7.1, 0, 1
+                  ]
+                  
+                  // ---- BEGIN Primitive drawing section
                 this.scene.pushMatrix();
-
-                var angle = 35 * Math.PI / 180;
-
-                this.scene.translate(-2.2, 2.7, 0);
-                this.scene.rotate(angle, 0, 0, 1);
-                //this.green.apply();
-                this.scene.diamond.display();
-
+                this.scene.multMatrix(tra1);
+                // this.green.apply();
+                this.diamond.display();
                 this.scene.popMatrix();
-
-                //-----------------------------------------------------
-
+                  
+              
                 this.scene.pushMatrix();
-
-                this.scene.translate(-2.5, 0, 0);
+                this.scene.translate(3.5, 5, 0);
+                this.scene.rotate(135*Math.PI/180, 0, 0, 1);
                 this.blue.apply();
-                this.scene.blueTriangle.display();
-
+                this.triangleBig.display();
                 this.scene.popMatrix();
-
-                //-----------------------------------------------------
-
+              
+              
                 this.scene.pushMatrix();
-
-                angle = 180 * Math.PI / 180;
-
-                this.scene.translate(-1, 0, 0);
-                this.scene.rotate(angle, 0, 0, 1);
-                this.orange.apply();
-                this.scene.orangeTriangle.display();
-
+                this.scene.translate(2.05, 4.2, 0);
+                this.scene.rotate(90*Math.PI/180, 0, 0, 1);
+                this.orange.apply()
+                this.triangleBig.display();
                 this.scene.popMatrix();
-
-                //-----------------------------------------------------
-
+              
                 this.scene.pushMatrix();
-
-                angle = 90 * Math.PI / 180;
-
-                this.scene.rotate(angle, 0, 0, 1);
+                this.scene.translate(3.5, 0.75, 0);
+                this.scene.rotate(180*Math.PI/180, 0, 1, 0);
+                this.scene.rotate(180*Math.PI/180, 1, 0, 0);
+                this.scene.rotate(-45*Math.PI/180, 0, 0, 1);
                 this.yellow.apply();
-                this.scene.yellowParallelogram.display();
-
+                this.parallelogram.display();
                 this.scene.popMatrix();
-
-                //-----------------------------------------------------
-
+              
+              
                 this.scene.pushMatrix();
-
-                this.scene.translate(1.5, 0, 0);
-                this.scene.scale(1.5, 1.5, 1);
+                this.scene.translate(1, 2.2, 0);
                 this.pink.apply();
-                this.scene.triangleSmall.display();
-
+                this.triangleSmall.display();
                 this.scene.popMatrix();
-
-                //-----------------------------------------------------
-
+              
+        
                 this.scene.pushMatrix();
-
-                angle = 180 * Math.PI / 180;
-
-                this.scene.translate(3.4, 0, 0);
-                this.scene.rotate(angle, 0, 0, 1);
-                this.purple.apply();
-                this.scene.triangleSmall.display();
-
-                this.scene.popMatrix();
-
-                //-----------------------------------------------------
-
-                this.scene.pushMatrix();
-
-                angle = 270 * Math.PI / 180;
-
-                this.scene.rotate(angle, 0, 0, 1);
-                this.scene.translate(-3.5, 1, 0);
+                this.scene.translate(-0.15, 2.1, 0);
+                this.scene.rotate(45*Math.PI/180, 0, 0, 1);
                 this.red.apply();
-                this.scene.triangleSmall.display();
-
+                this.triangleSmall.display();
                 this.scene.popMatrix();
+              
+              
+                this.scene.pushMatrix();
+                this.scene.translate(3.5, 0.7, 0);
+                this.scene.rotate(135*Math.PI/180, 0, 0, 1);
+                this.purple.apply();
+                this.triangleSmall.display();
+                this.scene.popMatrix();
+                // ---- END Primitive drawing section
         }
 
         enableNormalViz() {
-                this.scene.blueTriangleBig.enableNormalViz();
-                this.scene.diamond.enableNormalViz();
-                this.scene.orangeTriangle.enableNormalViz();
-                this.scene.triangleSmall.enableNormalViz();
-                this.scene.yellowParallelogram.enableNormalViz();
+                this.triangle.enableNormalViz();
+                this.diamond.enableNormalViz();
+                this.triangleBig.enableNormalViz();
+                this.triangleSmall.enableNormalViz();
+                this.parallelogram.enableNormalViz();
         }
 
         disableNormalViz() {
-                this.scene.blueTriangle.disableNormalViz();
-                this.scene.diamond.disableNormalViz();
-                this.scene.orangeTriangle.disableNormalViz();
-                this.scene.triangleSmall.disableNormalViz();
-                this.scene.yellowParallelogram.disableNormalViz();
+                this.triangle.disableNormalViz();
+                this.diamond.disableNormalViz();
+                this.triangleBig.disableNormalViz();
+                this.triangleSmall.disableNormalViz();
+                this.parallelogram.disableNormalViz();
         }
 }
