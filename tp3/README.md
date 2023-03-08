@@ -20,4 +20,4 @@
 
 | **Exercise 4**|
 | :----------:|
-| ![Exercise 4](screenshots/cg-t03g01-tp3-04.png) |
+| ![Exercise 4](screenshots/cg-t03g01-tp3-04.png)  |
