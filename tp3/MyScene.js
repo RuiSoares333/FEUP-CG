@@ -46,7 +46,7 @@ export class MyScene extends CGFscene {
         this.pyramid = new MyPyramid(this, 3, 1);
         this.tangram = new MyTangram(this);
         this.unitCube = new MyUnitCube(this);
-        this.myPrism = new MyPrism(this, 8, 20);
+        this.myPrism = new MyPrism(this, 6, 20);
 
         this.objects = [this.plane, this.pyramid, this.cone, this.tangram, this.unitCube, this.myPrism];
 
