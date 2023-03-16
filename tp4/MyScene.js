@@ -1,6 +1,7 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture } from "../lib/CGF.js";
 import { MyQuad } from "./MyQuad.js";
 import { MyTangram } from "./MyTangram.js";
+import { MyUnitCubeQuad } from "./MyUnitCubeQuad.js";
 
 /**
  * MyScene
@@ -19,7 +20,7 @@ export class MyScene extends CGFscene {
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
-        this.gl.clearDepth(100.0);
+        this.gl.clearDepth(10.0);
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
@@ -27,8 +28,15 @@ export class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
+
         this.quad = new MyQuad(this);
+        this.displayQuad = false;
+
         this.tangram = new MyTangram(this);
+        this.displayTangram = false;
+
+        this.cube = new MyUnitCubeQuad(this, 'mineTop.png', 'mineSide.png', 'mineSide.png', 'mineSide.png', 'mineSide.png', 'mineBottom.png');
+        this.displayCube = true;
 
         //------ Applied Material
         this.quadMaterial = new CGFappearance(this);
@@ -38,7 +46,42 @@ export class MyScene extends CGFscene {
         this.quadMaterial.setShininess(10.0);
         this.quadMaterial.loadTexture('images/default.png');
         this.quadMaterial.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.tangramMaterial = new CGFappearance(this);
+        this.tangramMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.tangramMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.tangramMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.tangramMaterial.setShininess(10.0);
+        this.tangramMaterial.loadTexture('images/tangram-flowers.png');
+        this.tangramMaterial.setTextureWrap('REPEAT', 'REPEAT');
         //------
+
+
+        //------ My unit cube material
+        this.bottomMaterial = new CGFappearance(this);
+        this.bottomMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.bottomMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.bottomMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.bottomMaterial.setShininess(10.0);
+        this.bottomMaterial.loadTexture('images/mineBottom.png');
+        this.bottomMaterial.setTextureWrap('REPEAT', 'REPEAT');
+            
+        this.topMaterial = new CGFappearance(this);
+        this.topMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.topMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.topMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.topMaterial.setShininess(10.0);
+        this.topMaterial.loadTexture('images/mineTop.png');
+        this.topMaterial.setTextureWrap('REPEAT', 'REPEAT');
+        
+        this.sideMaterial = new CGFappearance(this);
+        this.sideMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.sideMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.sideMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.sideMaterial.setShininess(10.0);
+        this.sideMaterial.loadTexture('images/mineSide.png');
+        this.sideMaterial.setTextureWrap('REPEAT', 'REPEAT');
+
 
         //------ Textures
         this.texture1 = new CGFtexture(this, 'images/board.jpg');
@@ -95,7 +138,7 @@ export class MyScene extends CGFscene {
     //Function that updates texture coordinates in MyQuad
     updateTexCoords() {
         //this.quad.updateTexCoords(this.texCoords);
-        this.tangram.updateTexCoords(this.texCoords);
+        this.quad.updateTexCoords(this.texCoords);
     }
 
     display() {
@@ -121,6 +164,7 @@ export class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
 
         this.quadMaterial.apply();
+        
 
         // Default texture filtering in WebCGF is LINEAR. 
         // Uncomment next line for NEAREST when magnifying, or 
@@ -128,8 +172,9 @@ export class MyScene extends CGFscene {
         
         // this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
 
-        //this.quad.display();
-        this.tangram.display();
+        if(this.displayQuad) this.quad.display();
+        if(this.displayTangram) this.tangram.display();
+        if(this.displayCube) this.cube.display();
 
         // ---- END Primitive drawing section
     }

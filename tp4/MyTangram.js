@@ -11,144 +11,109 @@ import { MyTriangleSmall } from "./MyTriangleSmall.js";
  */
 export class MyTangram extends CGFobject {
         constructor(scene) {
-                super(scene);
-                this.initMaterials();
+            super(scene);
 
-                //Initialize scene objects
-                this.diamond = new MyDiamond(scene);
-                this.triangle = new MyTriangle(scene);
-                this.triangleBig = new MyTriangleBig(scene);
-                this.triangleSmall = new MyTriangleSmall(scene);
-                this.parallelogram = new MyParallelogram(scene);
-        }
+        
+            this.texCoordsPurpleTriangle = [
+                0.0, 0.0,
+                0.0, 0.5,
+                0.25, 0.25
+            ];
 
-        initBuffers() {
-                this.initGLBuffers();
-        }
+            this.texCoordsRedTriangle = [
+                0.25, 0.75,
+                0.75, 0.75,
+                0.5, 0.5
+            ];
 
-        updateBuffers() {
+            this.texCoordsPinkTriangle = [
+                0.5, 1.0,
+                0.0, 0.5,
+                0.0, 1.0
+            ];
 
-        }
+            this.texCoordsBlueTriangle = [
+                1.0, 0.0,
+                0.0, 0.0,
+                0.5, 0.5,
+            ];
 
-        initMaterials() {
-                // Red
-                this.red = new CGFappearance(this.scene);
-                this.red.setAmbient(0.1, 0.1, 0.1, 1);
-                this.red.setDiffuse(1, 0, 0, 1);
-                this.red.setSpecular(1, 1, 1, 0);
-                this.red.setShininess(10.0);
+            this.texCoordsOrangeTriangle = [
+                1.0, 1.0,
+                1.0, 0.0,
+                0.5, 0.5
+            ];
 
-                // Yellow
-                this.yellow = new CGFappearance(this.scene);
-                this.yellow.setAmbient(0.1, 0.1, 0.1, 1);
-                this.yellow.setDiffuse(1, 1, 0, 1);
-                this.yellow.setSpecular(1, 1, 1, 0);
-                this.yellow.setShininess(10.0);
-
-                // Green
-                this.green = new CGFappearance(this.scene);
-                this.green.setAmbient(0.1, 0.1, 0.1, 1);
-                this.green.setDiffuse(0, 1, 0, 1);
-                this.green.setSpecular(1, 1, 1, 0);
-                this.green.setShininess(10.0);
-
-                // Blue
-                this.blue = new CGFappearance(this.scene);
-                this.blue.setAmbient(0.1, 0.1, 0.1, 1);
-                this.blue.setDiffuse(0, 0.4, 0.85, 1);
-                this.blue.setSpecular(1, 1, 1, 0);
-                this.blue.setShininess(10.0);
-
-                // Pink
-                this.pink = new CGFappearance(this.scene);
-                this.pink.setAmbient(0.1, 0.1, 0.1, 1);
-                this.pink.setDiffuse(1, 0.4, 0.6, 1);
-                this.pink.setSpecular(1, 1, 1, 0);
-                this.pink.setShininess(10.0);
-
-                // Orange
-                this.orange = new CGFappearance(this.scene);
-                this.orange.setAmbient(0.1, 0.1, 0.1, 1);
-                this.orange.setDiffuse(1, 0.5, 0, 1);
-                this.orange.setSpecular(1, 1, 1, 0);
-                this.orange.setShininess(10.0);
-
-                // Purple
-                this.purple = new CGFappearance(this.scene);
-                this.purple.setAmbient(0.1, 0.1, 0.1, 1);
-                this.purple.setDiffuse(0.58, 0, 0.827, 1);
-                this.purple.setSpecular(1, 1, 1, 0);
-                this.purple.setShininess(10.0);
-
-                this.diamondMaterial = new CGFappearance(this.scene);
-                this.diamondMaterial.setShininess(10.0);
-                this.diamondMaterial.loadTexture('images/tangram.png');
-                this.diamondMaterial.setTextureWrap('REPEAT', 'REPEAT');
+            //Initialize scene objects
+            this.diamond = new MyDiamond(this.scene);
+            this.purpleTriangle = new MyTriangleSmall(this.scene, this.texCoordsPurpleTriangle);
+            this.redTriangle = new MyTriangleSmall(this.scene, this.texCoordsRedTriangle);
+            this.parallelogram = new MyParallelogram(this.scene);
+            this.pinkTriangle = new MyTriangleSmall(this.scene, this.texCoordsPinkTriangle);
+            this.blueTriangleBig = new MyTriangleBig(this.scene, this.texCoordsBlueTriangle);
+            this.orangeTriangleBig = new MyTriangleBig(this.scene, this.texCoordsOrangeTriangle);
         }
 
         display(){
+            this.scene.tangramMaterial.apply();
+
         
                 var tra1 = [
                     1, 0, 0, 0,
                     0, 1, 0, 0,
                     0, 0, 1, 0,
                     2.5, 7.1, 0, 1
-                  ]
-                  
-                  // ---- BEGIN Primitive drawing section
+                ]
+                
+
+                // ---- BEGIN Primitive drawing section
+                // GREEN
                 this.scene.pushMatrix();
                 this.scene.multMatrix(tra1);
-                // this.green.apply();
-
                 this.diamond.display();
                 this.scene.popMatrix();
                   
-              
+                // BLUE
                 this.scene.pushMatrix();
                 this.scene.translate(3.5, 5, 0);
                 this.scene.rotate(135*Math.PI/180, 0, 0, 1);
-                this.blue.apply();
-                this.triangleBig.display();
+                this.blueTriangleBig.display();
                 this.scene.popMatrix();
               
-              
+                // ORANGE
                 this.scene.pushMatrix();
                 this.scene.translate(2.05, 4.2, 0);
                 this.scene.rotate(90*Math.PI/180, 0, 0, 1);
-                this.orange.apply()
-                this.triangleBig.display();
+                this.orangeTriangleBig.display();
                 this.scene.popMatrix();
               
+                // YELLOW
                 this.scene.pushMatrix();
                 this.scene.translate(3.5, 0.75, 0);
                 this.scene.rotate(180*Math.PI/180, 0, 1, 0);
                 this.scene.rotate(180*Math.PI/180, 1, 0, 0);
                 this.scene.rotate(-45*Math.PI/180, 0, 0, 1);
-                this.yellow.apply();
                 this.parallelogram.display();
                 this.scene.popMatrix();
               
-              
+                // PINK
                 this.scene.pushMatrix();
                 this.scene.translate(1, 2.2, 0);
-                this.pink.apply();
-                this.triangleSmall.display();
+                this.pinkTriangle.display();
                 this.scene.popMatrix();
               
-        
+                // RED
                 this.scene.pushMatrix();
                 this.scene.translate(-0.15, 2.1, 0);
                 this.scene.rotate(45*Math.PI/180, 0, 0, 1);
-                this.red.apply();
-                this.triangleSmall.display();
+                this.redTriangle.display();
                 this.scene.popMatrix();
               
-              
+                // PURPLE
                 this.scene.pushMatrix();
                 this.scene.translate(3.5, 0.7, 0);
                 this.scene.rotate(135*Math.PI/180, 0, 0, 1);
-                this.purple.apply();
-                this.triangleSmall.display();
+                this.purpleTriangle.display();
                 this.scene.popMatrix();
                 // ---- END Primitive drawing section
         }
@@ -168,4 +133,5 @@ export class MyTangram extends CGFobject {
                 this.triangleSmall.disableNormalViz();
                 this.parallelogram.disableNormalViz();
         }
+
 }
