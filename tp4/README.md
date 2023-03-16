@@ -12,3 +12,9 @@
 | :----------:| :----------:|
 | ![Exercise 1](screenshots/cg-t03g01-tp4-1.png) | ![Tangram](images/tangram-flowers.png) |
 
+
+- In Exercise 2, we got confused as to where Texture Filtering was supposed to be placed as NEAREST, but eventually, we reched a solution, and this was the result (a minecraft block of grass with the correct definition).
+
+| **Exercise 2**|
+| :----------:|
+| ![Exercise 2](screenshots/cg-t03g01-tp4-2.png) |
