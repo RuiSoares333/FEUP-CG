@@ -16,9 +16,9 @@ void main() {
 	colors[0] = texture2D(uSampler, vec2(vTextureCoord[0]- offset, 	vTextureCoord[1]- offset));
 	colors[1] = texture2D(uSampler, vec2(vTextureCoord[0], 			vTextureCoord[1]- offset));
 	colors[2] = texture2D(uSampler, vec2(vTextureCoord[0]+ offset, 	vTextureCoord[1]- offset));
-	colors[3] = texture2D(uSampler, vec2(vTextureCoord[0]- offset, 	vTextureCoord[1]));
+	colors[3] = texture2D(uSampler, vec2(vTextureCoord[0]+ offset, 	vTextureCoord[1]));
 	colors[4] = texture2D(uSampler, vec2(vTextureCoord[0], 			vTextureCoord[1]));
-	colors[5] = texture2D(uSampler, vec2(vTextureCoord[0]+ offset, 	vTextureCoord[1]));
+	colors[5] = texture2D(uSampler, vec2(vTextureCoord[0]- offset, 	vTextureCoord[1]));
 	colors[6] = texture2D(uSampler, vec2(vTextureCoord[0]- offset, 	vTextureCoord[1]+ offset));
 	colors[7] = texture2D(uSampler, vec2(vTextureCoord[0], 			vTextureCoord[1]+ offset));
 	colors[8] = texture2D(uSampler, vec2(vTextureCoord[0]+ offset, 	vTextureCoord[1]+ offset));
