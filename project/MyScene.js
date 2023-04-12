@@ -1,7 +1,8 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture } from "../lib/CGF.js";
 import { MyPlane } from "./MyPlane.js";
-import { MySphere } from "./MySphere.js";
 import { MyPanorama } from "./MyPanorama.js";
+import { MyBird } from "./MyBird.js";
+
 /**
  * MyScene
  * @constructor
@@ -30,6 +31,7 @@ export class MyScene extends CGFscene {
     this.panorama = new MyPanorama(this, "images/panorama4.jpg");
     //this.sphere = new MySphere(this,1,20,20,true);
     // adicionar um invert atribute dentro do sphere se for true é dentro se for false é fora
+    this.bird = new MyBird(this);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
@@ -90,19 +92,16 @@ export class MyScene extends CGFscene {
     this.applyViewMatrix();
 
     // Draw axis
-    //if (this.displayAxis) this.axis.display();
+    if (this.displayAxis) this.axis.display();
     
     
     // ---- BEGIN Primitive drawing section
-    /*
-    this.pushMatrix();
-    this.appearanceEarth.apply();
-    this.rotate(-Math.PI/2.0,1,0,0);
-    this.rotate(Math.PI/2,0,0,1);
-    this.sphere.display();
-    this.popMatrix();
-    */
-
+    // this.pushMatrix();
+    // this.appearanceEarth.apply();
+    // this.rotate(-Math.PI/2.0,1,0,0);
+    // this.rotate(Math.PI/2,0,0,1);
+    // this.sphere.display();
+    // this.popMatrix();
     this.pushMatrix();
     this.panorama.display();
     this.popMatrix();
@@ -114,6 +113,8 @@ export class MyScene extends CGFscene {
     this.rotate(-Math.PI/2.0,1,0,0);
     this.plane.display();
     this.popMatrix();
+
+    this.bird.display();
 
     // ---- END Primitive drawing section
   }
