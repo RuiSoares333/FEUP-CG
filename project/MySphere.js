@@ -1,11 +1,12 @@
 import { CGFobject } from '../lib/CGF.js';
 
 export class MySphere extends CGFobject {
-	constructor(scene, radius, slices, stacks) {
+	constructor(scene, radius, slices, stacks, invert) {
 		super(scene);
 		this.radius = radius;
 		this.slices = slices;
 		this.stacks = stacks;
+		this.invert = invert;
 		this.initBuffers();
 	}
 
@@ -38,10 +39,24 @@ export class MySphere extends CGFobject {
 			for (var j = 0; j < this.slices; j++) {
 				var a = i * (this.slices + 1) + j;
 				var b = a + this.slices + 1;
-
-				this.indices.push(a, b, a + 1);
-				this.indices.push(b, b + 1, a + 1);
+				
+				if(this.invert){
+					this.indices.push(a + 1, b, a);
+					this.indices.push(a + 1, b + 1, b);					
+				}
+				else {
+					this.indices.push(a, b, a + 1);
+					this.indices.push(b, b + 1, a + 1);	
+				}	
 			}
+		}
+
+		if (this.invertFaces) {
+  		for (var i = 0; i < this.normals.length; i += 3) {
+    		this.normals[i] *= -1;
+    		this.normals[i + 1] *= -1;
+    		this.normals[i + 2] *= -1;
+  		}
 		}
 
 		this.primitiveType = this.scene.gl.TRIANGLES;

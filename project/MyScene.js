@@ -1,7 +1,7 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture } from "../lib/CGF.js";
 import { MyPlane } from "./MyPlane.js";
 import { MySphere } from "./MySphere.js";
-
+import { MyPanorama } from "./MyPanorama.js";
 /**
  * MyScene
  * @constructor
@@ -27,7 +27,8 @@ export class MyScene extends CGFscene {
     //Initialize scene objects
     this.axis = new CGFaxis(this);
     this.plane = new MyPlane(this,30);
-    this.sphere = new MySphere(this,1,20,20);
+    this.panorama = new MyPanorama(this, "images/panorama4.jpg");
+    //this.sphere = new MySphere(this,1,20,20,true);
     // adicionar um invert atribute dentro do sphere se for true é dentro se for false é fora
 
     //Objects connected to MyInterface
@@ -37,12 +38,23 @@ export class MyScene extends CGFscene {
     this.enableTextures(true);
 
     this.texture = new CGFtexture(this, "images/terrain.jpg");
-    this.textureEarth = new CGFtexture(this, "images/earth.jpg");
     this.appearance = new CGFappearance(this);
-    this.appearanceEarth = new CGFappearance(this);  
     this.appearance.setTexture(this.texture);
-    this.appearanceEarth.setTexture(this.textureEarth);
     this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+
+    this.textureEarth = new CGFtexture(this, "images/earth.jpg");
+    this.appearanceEarth = new CGFappearance(this);  
+    this.appearanceEarth.setTexture(this.textureEarth);
+    this.appearanceEarth.setTextureWrap('REPEAT', 'REPEAT');
+
+    this.textureEarthIn = new CGFtexture(this, "images/panorama4.jpg");
+    this.appearanceEarthIn = new CGFappearance(this);
+    this.appearanceEarthIn.setTexture(this.textureEarthIn);
+    this.appearanceEarthIn.setAmbient(0.1, 0.1, 0.1, 1);
+    this.appearanceEarthIn.setDiffuse(0.9, 0.9, 0.9, 1);
+    this.appearanceEarthIn.setSpecular(0.1, 0.1, 0.1, 1);
+    this.appearanceEarthIn.setShininess(10.0);
+    this.appearanceEarthIn.setTextureWrap('REPEAT', 'REPEAT');
 
   }
   initLights() {
@@ -78,17 +90,23 @@ export class MyScene extends CGFscene {
     this.applyViewMatrix();
 
     // Draw axis
-    if (this.displayAxis) this.axis.display();
+    //if (this.displayAxis) this.axis.display();
     
     
     // ---- BEGIN Primitive drawing section
+    /*
     this.pushMatrix();
     this.appearanceEarth.apply();
     this.rotate(-Math.PI/2.0,1,0,0);
     this.rotate(Math.PI/2,0,0,1);
     this.sphere.display();
     this.popMatrix();
-    
+    */
+
+    this.pushMatrix();
+    this.panorama.display();
+    this.popMatrix();
+
     this.pushMatrix();
     this.appearance.apply();
     this.translate(0,-100,0);
