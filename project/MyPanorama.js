@@ -1,5 +1,5 @@
 import { CGFobject, CGFappearance, CGFtexture } from '../lib/CGF.js';
-import { MySphere } from './MySphere.js';
+import { MySphere } from './shapes/MySphere.js';
 
 export class MyPanorama {
   constructor(scene, texturePath) {

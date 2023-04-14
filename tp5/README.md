@@ -7,14 +7,14 @@
 
 | **Exercise 1** |
 | :----------:|
-| ![Exercise 1](screenshots/cg-t03g01-tp5-01.png) | 
+| ![Exercise 1](screenshots/cg-t03g01-tp5-1.png) | 
 
 
 
 | **Exercise 2**|
 | :----------:|
-| ![Exercise 2](screenshots/cg-t03g01-tp5-02.png) |
+| ![Exercise 2](screenshots/cg-t03g01-tp5-2.png) |
 
 | **Exercise 2**|
 | :----------:|
-| ![Exercise 3](screenshots/cg-t03g01-tp5-03.png) |
+| ![Exercise 3](screenshots/cg-t03g01-tp5-3.png) |

@@ -1,6 +1,6 @@
 # CG 2022/2023
 
-## Group T0xG0y
+## Group T03G01
 | Name             | Number    | E-Mail             |
 | ---------------- | --------- | ------------------ |
 | Carlos Sousa         | 202005954 | up202005954@edu.fc.up.pt             |
