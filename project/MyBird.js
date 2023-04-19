@@ -4,8 +4,8 @@ import { MyCilinder } from "./shapes/MyCilinder.js";
 import { MyCone } from './shapes/MyCone.js';
 import { MyWing } from './shapes/MyWing.js';
 
-const wingStr = 0.5;
-const airRes = -0.1;
+const wingStr = 0.2;
+const airRes = -0.01;
 const toRadians = Math.PI / 180;
 const angleTurn = 5 * toRadians;
 
@@ -21,31 +21,34 @@ export class MyBird extends CGFobject {
         super(scene);
 
         this.initTextures();
-        this.initObjects(200);
+        this.initObjects(20);
         this.setPosition();
 
-        this.velocityCap = 20;
+        this.velocityCap = 1;
     }
 
     initTextures(){
         // Initialize textures
-        this.bodyTexture = new CGFtexture(this.scene, 'images/teal.jpg');
+        this.wingsTexture = new CGFtexture(this.scene, 'images/feathers_wings.png');
+        this.bodyTexture = new CGFtexture(this.scene, 'images/feathers_body.png');
+        
         this.beakTexture = new CGFtexture(this.scene, 'images/gold.jpg');
         this.eyeTexture = new CGFtexture(this.scene, 'images/dark_blue.jpg');
 
         this.material = new CGFappearance(this.scene);
         this.material.setEmission(0.5, 0.5, 0.5, 0.5);
-        // this.birdMaterial.setTextureWrap('REPEAT', 'REPEAT');
+        this.material.setTextureWrap('REPEAT', 'REPEAT');
     }
 
     initObjects(c){
         //Initialize scene objects
-        this.head = new MySphere(this.scene, 1, c, c); // HEAD
+        this.head = new MySphere(this.scene, 1, c, c, false, 1); // HEAD
         this.beak = new MyCone(this.scene, c, c); // BEAK
-        this.lEye = new MySphere(this.scene, 1, c, c); // LEFT EYE
-        this.rEye = new MySphere(this.scene, 1, c, c); // RIGHT EYE
+        this.lEye = new MySphere(this.scene, 1, c, c, false, 1); // LEFT EYE
+        this.rEye = new MySphere(this.scene, 1, c, c, false, 1); // RIGHT EYE
 
-        this.torso = new MyCilinder(this.scene, c, c); // TORSO
+        // this.torso = new MyCilinder(this.scene, 20, 20); // TORSO
+        this.torso = new MySphere(this.scene, 1, c, c, false, 1.5); // RIGHT EYE
         this.lWing = new MyWing(this.scene, this); // LEFT WING
         this.rWing = new MyWing(this.scene, this); // RIGHT WING
 
@@ -86,7 +89,7 @@ export class MyBird extends CGFobject {
             this.beak.display();
             this.scene.popMatrix();
 
-            // HEAD
+            // LEFT EYE
             this.scene.pushMatrix();
             this.scene.scale(0.2, 0.2, 0.2);
             this.scene.translate(-5, 5, 0);
@@ -95,7 +98,7 @@ export class MyBird extends CGFobject {
             this.lEye.display();
             this.scene.popMatrix();
 
-            // HEAD
+            // RIGHT EYE
             this.scene.pushMatrix();
             this.scene.scale(0.2, 0.2, 0.2);
             this.scene.translate(5, 5, 0);
@@ -104,7 +107,7 @@ export class MyBird extends CGFobject {
 
             // TORSO
             this.scene.pushMatrix();
-            this.scene.translate(0, 0, 0);
+            this.scene.translate(0, 0, 0.6);
             this.material.setTexture(this.bodyTexture);
             this.material.apply();
             this.torso.display();
@@ -116,12 +119,16 @@ export class MyBird extends CGFobject {
             this.scene.rotate(180* toRadians, 1, 0, 0);
             this.scene.rotate(-180* toRadians, 1, 0, 0);
             this.scene.scale(-1, 1, 1);
+            this.material.setTexture(this.wingsTexture);
+            this.material.apply();
             this.lWing.display();
             this.scene.popMatrix();
 
             // RIGHT WING
             this.scene.pushMatrix();
             this.scene.translate(0.5, 0, 0.5);
+            this.material.setTexture(this.wingsTexture);
+            this.material.apply();
             this.rWing.display();
             this.scene.popMatrix();
 
@@ -129,7 +136,9 @@ export class MyBird extends CGFobject {
             this.scene.pushMatrix();
             this.scene.translate(0, 0, 2);
             this.scene.rotate(-120* toRadians, 0, 1, 0);
-            this.scene.scale(0.5, 0.5, 0.5);
+            this.scene.scale(0.6, 0.5, 0.5);
+            this.material.setTexture(this.wingsTexture);
+            this.material.apply();
             this.lTail.display();
             this.scene.popMatrix();
 
@@ -138,7 +147,9 @@ export class MyBird extends CGFobject {
             this.scene.scale(-1, 1, 1);
             this.scene.translate(0, 0, 2);
             this.scene.rotate(-120* toRadians, 0, 1, 0);
-            this.scene.scale(0.5, 0.5, 0.5);
+            this.scene.scale(0.6, 0.5, 0.5);
+            this.material.setTexture(this.wingsTexture);
+            this.material.apply();
             this.rTail.display();
             this.scene.popMatrix();
 

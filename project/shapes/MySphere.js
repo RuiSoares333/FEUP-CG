@@ -1,12 +1,13 @@
 import { CGFobject } from '../../lib/CGF.js';
 
 export class MySphere extends CGFobject {
-	constructor(scene, radius, slices, stacks, invert) {
+	constructor(scene, radius, slices, stacks, invert, stretch) {
 		super(scene);
 		this.radius = radius;
 		this.slices = slices;
 		this.stacks = stacks;
 		this.invert = invert;
+		this.stretch = stretch;
 		this.initBuffers();
 	}
 
@@ -29,7 +30,7 @@ export class MySphere extends CGFobject {
 				var y = Math.sin(alpha) * Math.sin(beta);
 				var z = Math.cos(beta);
 
-				this.vertices.push(this.radius * x, this.radius * y, this.radius * z);
+				this.vertices.push(this.radius * x, this.radius * y, this.radius * z * this.stretch);
 				this.normals.push(x, y, z);
 				this.texCoords.push(j / this.slices, i / this.stacks);
 			}
