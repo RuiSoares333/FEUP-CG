@@ -1,7 +1,7 @@
-import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture } from "../lib/CGF.js";
-import { MyPlane } from "./shapes/MyPlane.js";
+import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture, CGFshader } from "../lib/CGF.js";
 import { MyPanorama } from "./MyPanorama.js";
 import { MyBird } from "./MyBird.js";
+import { MyTerrain } from "./MyTerrain.js";
 
 /**
  * MyScene
@@ -34,17 +34,14 @@ export class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.plane = new MyPlane(this,30);
+        
+        this.terrain = new MyTerrain(this);
+        
         this.panorama = new MyPanorama(this, "images/panorama4.jpg");
+        
         this.bird = new MyBird(this);
 
-
         this.enableTextures(true);
-
-        this.texture = new CGFtexture(this, "images/terrain.jpg");
-        this.appearance = new CGFappearance(this);
-        this.appearance.setTexture(this.texture);
-        this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
         this.textureEarth = new CGFtexture(this, "images/earth.jpg");
         this.appearanceEarth = new CGFappearance(this);  
@@ -59,6 +56,7 @@ export class MyScene extends CGFscene {
         this.appearanceEarthIn.setSpecular(0.1, 0.1, 0.1, 1);
         this.appearanceEarthIn.setShininess(10.0);
         this.appearanceEarthIn.setTextureWrap('REPEAT', 'REPEAT');
+                
 
         // set the scene update period 
         // (to invoke the update() method every 60ms or as close as possible to that )
@@ -73,9 +71,9 @@ export class MyScene extends CGFscene {
     }
     initCameras() {
         this.camera = new CGFcamera(
-            2.0,
+            1.0,
             0.1,
-            1000,
+            500,
             vec3.fromValues(-10, 10, 0),
             vec3.fromValues(0, 0, 0)
         );
@@ -157,16 +155,14 @@ export class MyScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
-        this.appearance.apply();
-        this.translate(0,-100,0);
-        this.scale(400,400,400);
-        this.rotate(-Math.PI/2.0,1,0,0);
-        this.plane.display();
+        this.bird.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.bird.display();
+        this.terrain.display();
         this.popMatrix();
+
+        this.setActiveShader(this.defaultShader);
 
         // ---- END Primitive drawing section
     }
