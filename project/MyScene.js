@@ -71,9 +71,9 @@ export class MyScene extends CGFscene {
     }
     initCameras() {
         this.camera = new CGFcamera(
-            1.0,
+            2.0,
             0.1,
-            500,
+            1000,
             vec3.fromValues(-10, 10, 0),
             vec3.fromValues(0, 0, 0)
         );
