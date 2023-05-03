@@ -24,7 +24,7 @@ export class MyBird extends CGFobject {
         this.initObjects(20);
         this.setPosition();
 
-        this.velocityCap = 1;
+        this.velocityCap = 0.3;
     }
 
     initTextures(){
@@ -207,7 +207,6 @@ export class MyBird extends CGFobject {
         var backward = pressedKeys.includes("S");
         var left = pressedKeys.includes("A");
         var right = pressedKeys.includes("D");
-
 
         if(reset){
             this.setPosition();
