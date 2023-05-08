@@ -29,6 +29,7 @@ export class MyScene extends CGFscene {
 
         //Objects connected to MyInterface
         this.displayAxis = true;
+        this.cameraLock = true;
         this.scaleFactor = 1;
         this.speedFactor = 1;
 
@@ -217,7 +218,9 @@ export class MyScene extends CGFscene {
             birdPosition[1],
             birdPosition[2]
         );
-        this.camera.setPosition(cameraPosition);
-        this.camera.setTarget(cameraTarget);
+        if(this.cameraLock){
+            this.camera.setPosition(cameraPosition);
+            this.camera.setTarget(cameraTarget);
+        }
     }
 }

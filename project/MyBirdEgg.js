@@ -16,7 +16,7 @@ export class MyBirdEgg extends CGFobject {
 		this.z = (Math.random() * 50) - 100;
 		this.rotation = Math.floor(Math.random()*360);
 
-		this.sphere = new MyEgg(this.scene, 1, 30, 30, false, 1.5);
+		this.egg = new MyEgg(this.scene, 1, 30, 30, false, 1.5);
 
 
 		this.textEgg = new CGFtexture(this.scene, "images/kinder.png");
@@ -61,7 +61,7 @@ export class MyBirdEgg extends CGFobject {
 		this.scene.scale(0.7,0.7,0.7);
 		this.appearance.apply();
 		this.texture.bind(1);
-		this.sphere.display();
+		this.egg.display();
 
 		this.scene.popMatrix();
 	}

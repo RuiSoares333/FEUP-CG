@@ -2,6 +2,7 @@ import { CGFobject, CGFtexture, CGFappearance } from '../lib/CGF.js';
 import { MySphere } from "./shapes/MySphere.js";
 import { MyCone } from './shapes/MyCone.js';
 import { MyWing } from './shapes/MyWing.js';
+import { MyEgg } from './shapes/MyEgg.js';
 
 const wingStr = 0.2;
 const airRes = -0.01;
@@ -46,8 +47,7 @@ export class MyBird extends CGFobject {
         this.lEye = new MySphere(this.scene, 1, c, c, false, 1); // LEFT EYE
         this.rEye = new MySphere(this.scene, 1, c, c, false, 1); // RIGHT EYE
 
-        // this.torso = new MyCilinder(this.scene, 20, 20); // TORSO
-        this.torso = new MySphere(this.scene, 1, c, c, false, 1.5); // RIGHT EYE
+        this.torso = new MyEgg(this.scene, 1, c, c, false, 2); // TORSO
         this.lWing = new MyWing(this.scene, this); // LEFT WING
         this.rWing = new MyWing(this.scene, this); // RIGHT WING
 
@@ -134,7 +134,7 @@ export class MyBird extends CGFobject {
 
             // LEFT TAIL
             this.scene.pushMatrix();
-            this.scene.translate(0, 0, 2);
+            this.scene.translate(0, 0, 2.5);
             this.scene.rotate(-120* toRadians, 0, 1, 0);
             this.scene.scale(0.6, 0.5, 0.5);
             this.material.setTexture(this.wingsTexture);
@@ -145,7 +145,7 @@ export class MyBird extends CGFobject {
             // RIGHT TAIL
             this.scene.pushMatrix();
             this.scene.scale(-1, 1, 1);
-            this.scene.translate(0, 0, 2);
+            this.scene.translate(0, 0, 2.5);
             this.scene.rotate(-120* toRadians, 0, 1, 0);
             this.scene.scale(0.6, 0.5, 0.5);
             this.material.setTexture(this.wingsTexture);

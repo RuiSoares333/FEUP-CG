@@ -36,7 +36,7 @@ export class MyEgg extends CGFobject {
 			}
 		}
 
-        for (var i = this.stacks / 2; i <= this.stacks; i++) {
+        for (var i = this.stacks / 2 + 1; i <= this.stacks; i++) {
 			var beta = i * betaAng;
 
 			for (var j = 0; j <= this.slices; j++) {
@@ -46,7 +46,7 @@ export class MyEgg extends CGFobject {
 				var y = Math.sin(alpha) * Math.sin(beta);
 				var z = Math.cos(beta);
 
-				this.vertices.push(this.radius * x, this.radius * y, this.radius * z );
+				this.vertices.push(this.radius * x, this.radius * y, this.radius * z);
 				this.normals.push(x, y, z);
 				this.texCoords.push(j / this.slices, i / this.stacks);
 			}
