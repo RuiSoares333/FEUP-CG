@@ -3,7 +3,6 @@ import { MyPanorama } from "./MyPanorama.js";
 import { MyBird } from "./MyBird.js";
 import { MyTerrain } from "./MyTerrain.js";
 import { MyBirdEgg } from "./MyBirdEgg.js";
-import { MySphere } from "./shapes/MySphere.js";
 
 /**
  * MyScene
@@ -45,18 +44,10 @@ export class MyScene extends CGFscene {
 
         this.nEggs = 5;
         this.eggs = [];
-        var textEgg = new CGFtexture(this, "images/kinder.png");
         
 
-        for (var i =0 ;i<this.nEggs;i++) {
-          var egg = new MyBirdEgg(this,1,30,30);
-          egg.x = Math.floor(Math.random() * 25);
-          egg.y = -90;
-          egg.z = Math.floor(Math.random() * (0 - (-40) + 1)) - 40;
-          egg.texture = textEgg;
-          egg.appearance.setTexture(textEgg);
-
-          this.eggs.push(egg);
+        for (var i = 0; i < this.nEggs; i++) {
+            this.eggs.push(new MyBirdEgg(this, 1, 30, 30));
         }
 
 
@@ -179,15 +170,17 @@ export class MyScene extends CGFscene {
 
         
         // ---- BEGIN Primitive drawing section
-        this.pushMatrix();
+        // Panorama
         this.panorama.display();
-        this.popMatrix();
 
-        this.pushMatrix();
+        // Bird
         this.bird.display();
-        this.popMatrix();
 
+
+        // Terrain
         this.pushMatrix();
+        this.pushMatrix();
+        this.translate(0, -25, 0);
         this.terrain.display();
         this.popMatrix();
         this.setActiveShader(this.defaultShader);
@@ -195,17 +188,15 @@ export class MyScene extends CGFscene {
 
         // Eggs
         this.eggs[0].display();
-        for (var i =0 ;i<this.eggs.length;i++) {
+        for (var i = 0; i < this.eggs.length; i++) {
             this.pushMatrix();
-            this.translate(this.eggs[i].x,this.eggs[i].y,this.eggs[i].z);
             this.eggs[i].display();
             this.popMatrix();
         }
-        this.setActiveShader(this.defaultShader);
 
-        
+        this.popMatrix();
 
-        
+        this.setActiveShader(this.defaultShader);        
 
         // ---- END Primitive drawing section
     }
@@ -226,7 +217,7 @@ export class MyScene extends CGFscene {
             birdPosition[1],
             birdPosition[2]
         );
-        //this.camera.setPosition(cameraPosition);
-        //this.camera.setTarget(cameraTarget);
+        this.camera.setPosition(cameraPosition);
+        this.camera.setTarget(cameraTarget);
     }
 }

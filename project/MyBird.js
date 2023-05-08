@@ -1,6 +1,5 @@
 import { CGFobject, CGFtexture, CGFappearance } from '../lib/CGF.js';
 import { MySphere } from "./shapes/MySphere.js";
-import { MyCilinder } from "./shapes/MyCilinder.js";
 import { MyCone } from './shapes/MyCone.js';
 import { MyWing } from './shapes/MyWing.js';
 
@@ -58,6 +57,7 @@ export class MyBird extends CGFobject {
 
 
     display(){
+        this.velocityCap = 0.3 * this.scene.speedFactor;
         const time = Date.now() / 200 * this.scene.speedFactor;
 
         // Calculate the vertical displacement using a sine function
@@ -201,12 +201,18 @@ export class MyBird extends CGFobject {
             this.velocity = finalVelocity;
     }
 
+    fly(wingStr){
+        this.y += wingStr;
+    }
+
     movementHandler(pressedKeys){
         var reset = pressedKeys.includes("R");
         var forward = pressedKeys.includes("W");
         var backward = pressedKeys.includes("S");
         var left = pressedKeys.includes("A");
         var right = pressedKeys.includes("D");
+        var up = pressedKeys.includes("U");
+        var down = pressedKeys.includes("X");
 
         if(reset){
             this.setPosition();
@@ -232,6 +238,16 @@ export class MyBird extends CGFobject {
         }
         else if(right){
             this.turn(-angleTurn);
+        }
+
+        if(up && down){
+            // do nothing
+        }
+        else if(up){
+            this.fly(wingStr);
+        }
+        else if(down){
+            this.fly(-wingStr);
         }
     }
 
