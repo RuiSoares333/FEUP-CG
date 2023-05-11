@@ -3,6 +3,7 @@ import { MyPanorama } from "./MyPanorama.js";
 import { MyBird } from "./MyBird.js";
 import { MyTerrain } from "./MyTerrain.js";
 import { MyBirdEgg } from "./MyBirdEgg.js";
+import { MyNest } from "./MyNest.js";
 
 /**
  * MyScene
@@ -42,6 +43,7 @@ export class MyScene extends CGFscene {
         this.panorama = new MyPanorama(this, "images/panorama4.jpg");
         
         this.bird = new MyBird(this);
+        this.nest = new MyNest(this);
 
         this.nEggs = 5;
         this.eggs = [];
@@ -199,10 +201,10 @@ export class MyScene extends CGFscene {
 
         // Eggs
         for (var i = 0; i < this.eggs.length; i++) {
-            this.pushMatrix();
             this.eggs[i].display();
-            this.popMatrix();
         }
+
+        this.nest.display();
 
         this.popMatrix();
 

@@ -28,7 +28,6 @@ export class MyBird extends CGFobject {
         this.initTextures();
         this.initObjects(20);
         this.setPosition();
-        this.pickUpAction = false;
         this.currentState = this.state.FLY;
 
         this.velocityCap = 0.3;
