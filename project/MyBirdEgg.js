@@ -5,7 +5,13 @@ const toRadians = Math.PI / 180;
 
 export class MyBirdEgg extends CGFobject {
 
-	constructor(scene, radius, slices, stacks) {
+	state = {
+		REST: "the egg is resting",
+		BIRD: "the egg is attached to the bird",
+		FALL: "the egg was dropped and is falling",
+	}
+
+	constructor(scene, radius, slices, stacks, bird) {
 		super(scene);
 		this.radius = radius;
 		this.slices = slices;
@@ -15,9 +21,10 @@ export class MyBirdEgg extends CGFobject {
 		this.y = 0;
 		this.z = (Math.random() * 50) - 100;
 		this.rotation = Math.floor(Math.random()*360);
+		this.currentState = this.state.REST;
 
+		this.bird = bird;
 		this.egg = new MyEgg(this.scene, 1, 30, 30, false, 1.5);
-
 
 		this.textEgg = new CGFtexture(this.scene, "images/kinder.png");
 		this.texture = this.textEgg;
@@ -52,17 +59,55 @@ export class MyBirdEgg extends CGFobject {
 
 	}
 
+	update(){
+
+    }
+
+	dealWithState(){
+		if(this.currentState === this.state.BIRD){
+			this.x = this.bird.x;
+			this.y = this.bird.displacement + this.bird.y - 1.5;
+			this.z = this.bird.z;
+		}
+		else if(this.currentState === this.state.FALL){
+			if(this.y <= 0){
+				this.y = 0;
+				this.currentState = this.state.REST;
+				return;
+			}
+			this.x -= Math.sin(this.angle) * (this.velocity);
+			this.y -= 0.5;
+			this.z -= Math.cos(this.angle) * (this.velocity);
+		}
+	}
+
 	display(){
 		this.scene.pushMatrix();
 
-		this.scene.translate(this.x, this.y, this.z);
-		this.scene.rotate(this.rotation * toRadians, 0, 0, 0);
-    	this.scene.rotate(- Math.PI / 2, 1, 0, 0);
-		this.scene.scale(0.7,0.7,0.7);
-		this.appearance.apply();
-		this.texture.bind(1);
-		this.egg.display();
+
+			this.dealWithState();
+
+
+			this.scene.translate(this.x, this.y, this.z);
+			this.scene.rotate(this.rotation * toRadians, 0, 0, 0);
+			this.scene.rotate(- Math.PI / 2, 1, 0, 0);
+			this.scene.scale(0.7,0.7,0.7);
+			this.appearance.apply();
+			this.texture.bind(1);
+			this.egg.display();
 
 		this.scene.popMatrix();
+	}
+
+	followBird(){
+		this.currentState = this.state.BIRD;
+	}
+
+	drop(){
+		if(this.currentState === this.state.BIRD){
+			this.angle = this.bird.angle;
+			this.velocity = this.bird.velocity;
+			this.currentState = this.state.FALL;
+		}
 	}
 }

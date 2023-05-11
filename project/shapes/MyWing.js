@@ -55,15 +55,15 @@ export class MyWing extends CGFobject {
 
 		// SQUARE
 		this.scene.pushMatrix();
-		this.scene.rotate(wingRotation, 0, 0, 1);
-		this.square.display();
+			this.scene.rotate(wingRotation, 0, 0, 1);
+			this.square.display();
 		this.scene.popMatrix();
 
 		// TRIANGLE WING
 		this.scene.pushMatrix();
-		this.scene.translate(wingX,  wingY, 0);
-		this.scene.rotate(triangleRadianAngle, 0, 0, 1);
-		this.triangle.display();
+			this.scene.translate(wingX,  wingY, 0);
+			this.scene.rotate(triangleRadianAngle, 0, 0, 1);
+			this.triangle.display();
 		this.scene.popMatrix();
 
 		// ---- END Primitive drawing section

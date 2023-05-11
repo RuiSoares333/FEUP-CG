@@ -16,6 +16,11 @@ const angleTurn = 5 * toRadians;
  */
 export class MyBird extends CGFobject {
 
+    state = {
+        FLY: "fly",
+        DOWN: "down movement to pick egg",
+        UP: "upward movement to pick egg up"
+    }
 
     constructor(scene) {
         super(scene);
@@ -23,6 +28,8 @@ export class MyBird extends CGFobject {
         this.initTextures();
         this.initObjects(20);
         this.setPosition();
+        this.pickUpAction = false;
+        this.currentState = this.state.FLY;
 
         this.velocityCap = 0.3;
     }
@@ -55,20 +62,7 @@ export class MyBird extends CGFobject {
         this.rTail = new MyWing(this.scene, this); // RIGHT TAIL
     }
 
-
-    display(){
-        this.velocityCap = 0.3 * this.scene.speedFactor;
-        const time = Date.now() / 200 * this.scene.speedFactor;
-
-        // Calculate the vertical displacement using a sine function
-        const displacement = Math.sin(time) * 0.25; // Maximum displacement of 0.25      
-
-        // Translate the bird object by the displacement
-        this.scene.pushMatrix();
-        this.scene.translate(this.x, this.y + displacement, this.z);
-        this.scene.rotate(this.angle, 0, 1, 0);
-        this.scene.scale(this.scene.scaleFactor, this.scene.scaleFactor, this.scene.scaleFactor);
-
+    drawShapes(){
         // ---- BEGIN Primitive drawing section
 
             // HEAD
@@ -154,7 +148,54 @@ export class MyBird extends CGFobject {
             this.scene.popMatrix();
 
         // ---- END Primitive drawing section
+    }
 
+    getDisplacement(){
+        const time = Date.now() / 200 * this.scene.speedFactor;
+
+        switch (this.currentState){
+            case this.state.FLY :
+                // Calculate the vertical displacement using a sine function
+                this.displacement = Math.sin(time) * 0.3; // Maximum displacement of 0.03
+                break;
+            case this.state.DOWN:
+                if(this.displacement <= -3){
+                    this.pickEgg();
+                    if(this.scene.eggs[0].eggDistance <= 3){
+                        this.scene.eggs[0].followBird();
+                    }
+                    this.currentState = this.state.UP;
+                    break;
+                }
+                this.displacement -= 0.25;
+                break;
+            case this.state.UP:
+                if(this.displacement >= 0){
+                    this.currentState = this.state.FLY;
+                    break;
+                }
+                this.displacement += 0.25;
+                break;
+            default:
+                break;
+        }
+        return 0;
+
+    }
+
+    display(){
+        this.velocityCap = 0.3 * this.scene.speedFactor;
+        this.getDisplacement();
+
+        // Translate the bird object by the displacement
+        this.scene.pushMatrix();
+
+            this.scene.translate(this.x, this.y + this.displacement, this.z);
+            this.scene.rotate(this.angle, 0, 1, 0);
+            this.scene.scale(this.scene.scaleFactor, this.scene.scaleFactor, this.scene.scaleFactor);
+
+            this.drawShapes();
+        
         this.scene.popMatrix();
     }
 
@@ -202,7 +243,28 @@ export class MyBird extends CGFobject {
     }
 
     fly(wingStr){
+        if(this.y >= 3){
+            this.pickUpAction = false;
+        }
+        else if (this.y <= 0){
+            
+        }
         this.y += wingStr;
+    }
+
+    pickEgg(){
+
+        for (var i = 0; i < this.scene.eggs.length; i++) {
+            var xDis = Math.pow(Math.abs(this.x - this.scene.eggs[i].x), 2); 
+            var zDis = Math.pow(Math.abs(this.z - this.scene.eggs[i].z), 2); 
+            var total = Math.pow(xDis + zDis, 0.5);
+
+            this.scene.eggs[i].eggDistance = total;
+            if(total <= 3){
+                this.scene.eggs.sort((a,b) => a.eggDistance - b.eggDistance);
+            }
+        }
+
     }
 
     movementHandler(pressedKeys){
@@ -211,6 +273,8 @@ export class MyBird extends CGFobject {
         var backward = pressedKeys.includes("S");
         var left = pressedKeys.includes("A");
         var right = pressedKeys.includes("D");
+        var pickUp = pressedKeys.includes("P");
+        var drop = pressedKeys.includes("O");
         var up = pressedKeys.includes("U");
         var down = pressedKeys.includes("X");
 
@@ -240,6 +304,20 @@ export class MyBird extends CGFobject {
             this.turn(-angleTurn);
         }
 
+
+        if(this.currentState !== this.state.FLY) return;
+
+        // Egg Pickup
+        if(pickUp){
+            this.currentState = this.state.DOWN;
+            this.pickEgg();
+        }
+
+        if(drop){
+            this.scene.eggs[0].drop();
+        }
+
+        // Up and Down
         if(up && down){
             // do nothing
         }
@@ -249,6 +327,7 @@ export class MyBird extends CGFobject {
         else if(down){
             this.fly(-wingStr);
         }
+
     }
 
 }

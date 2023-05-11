@@ -48,7 +48,7 @@ export class MyScene extends CGFscene {
         
 
         for (var i = 0; i < this.nEggs; i++) {
-            this.eggs.push(new MyBirdEgg(this, 1, 30, 30));
+            this.eggs.push(new MyBirdEgg(this, 1, 30, 30, this.bird));
         }
 
 
@@ -126,6 +126,16 @@ export class MyScene extends CGFscene {
             keysPressed = true;
         }
 
+        if (this.gui.isKeyPressed("KeyP")) {
+            text += " P ";
+            keysPressed = true;
+        }
+
+        if (this.gui.isKeyPressed("KeyO")) {
+            text += " O ";
+            keysPressed = true;
+        }
+
         if(this.gui.isKeyPressed("Space")){
             text += " U ";
             keysPressed = true;
@@ -188,7 +198,6 @@ export class MyScene extends CGFscene {
 
 
         // Eggs
-        this.eggs[0].display();
         for (var i = 0; i < this.eggs.length; i++) {
             this.pushMatrix();
             this.eggs[i].display();
