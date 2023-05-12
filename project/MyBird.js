@@ -30,7 +30,7 @@ export class MyBird extends CGFobject {
         this.setPosition();
         this.currentState = this.state.FLY;
 
-        this.velocityCap = 0.3;
+        this.velocityCap = 0.25;
     }
 
     initTextures(){
@@ -160,7 +160,7 @@ export class MyBird extends CGFobject {
             case this.state.DOWN:
                 if(this.displacement <= -3){
                     this.pickEgg();
-                    if(this.scene.eggs[0].eggDistance <= 3){
+                    if(this.scene.eggs[0].eggDistance <= 7){
                         this.scene.eggs[0].followBird();
                     }
                     this.currentState = this.state.UP;
@@ -192,7 +192,7 @@ export class MyBird extends CGFobject {
             this.scene.translate(this.x, this.y + this.displacement, this.z);
             this.scene.rotate(this.angle, 0, 1, 0);
             this.scene.scale(this.scene.scaleFactor, this.scene.scaleFactor, this.scene.scaleFactor);
-
+            this.scene.eggs[0].isCloseToNest();
             this.drawShapes();
         
         this.scene.popMatrix();
@@ -215,7 +215,7 @@ export class MyBird extends CGFobject {
         this.x = 0;
         this.y = 3;
         this.z = 0;
-        this.angle = -90 * toRadians;
+        this.angle = 0;
         this.velocity = 1;
     }
 
@@ -257,9 +257,10 @@ export class MyBird extends CGFobject {
             var xDis = Math.pow(Math.abs(this.x - this.scene.eggs[i].x), 2); 
             var zDis = Math.pow(Math.abs(this.z - this.scene.eggs[i].z), 2); 
             var total = Math.pow(xDis + zDis, 0.5);
+            console.log(total);
 
             this.scene.eggs[i].eggDistance = total;
-            if(total <= 3){
+            if(total <= 7){
                 this.scene.eggs.sort((a,b) => a.eggDistance - b.eggDistance);
             }
         }

@@ -20,6 +20,7 @@ export class MyBirdEgg extends CGFobject {
 		this.x = (Math.random() * 75) - 115;
 		this.y = 0;
 		this.z = (Math.random() * 75) - 120;
+		this.velocity = 0;
 		this.rotation = Math.floor(Math.random()*360);
 		this.currentState = this.state.REST;
 
@@ -75,6 +76,11 @@ export class MyBirdEgg extends CGFobject {
 				this.currentState = this.state.REST;
 				return;
 			}
+			if(this.velocity - 0.1 > 0){
+				this.velocity -= 0.1;
+			} else {
+				this.velocity = 0;
+			}
 			this.x -= Math.sin(this.angle) * (this.velocity);
 			this.y -= 0.5;
 			this.z -= Math.cos(this.angle) * (this.velocity);
@@ -103,10 +109,25 @@ export class MyBirdEgg extends CGFobject {
 		this.currentState = this.state.BIRD;
 	}
 
+	isCloseToNest(){
+		var xVel = Math.cos(this.bird.angle) * this.bird.velocity / this.scene.speedFactor;
+		var finalX = xVel * Math.pow(2*this.bird.y, 0.5);
+
+		var zVel = Math.sin(this.bird.angle) * this.bird.velocity / this.scene.speedFactor;
+		var finalZ = zVel * Math.pow(2*this.bird.y, 0.5);
+
+		var xDis = Math.pow(this.scene.nest.x - (finalX + this.bird.x), 2);
+		var zDis = Math.pow(this.scene.nest.z - (finalZ + this.bird.z), 2);
+
+		var totalDist = Math.pow(xDis + zDis, 0.5);
+
+		return totalDist <= 5.5;
+	}
+
 	drop(){
-		if(this.currentState === this.state.BIRD){
+		if(this.currentState === this.state.BIRD && this.isCloseToNest()){
 			this.angle = this.bird.angle;
-			this.velocity = this.bird.velocity;
+			this.velocity = this.bird.velocity / this.scene.speedFactor;
 			this.currentState = this.state.FALL;
 		}
 	}

@@ -12,9 +12,13 @@ export class MyNest extends CGFobject {
     constructor(scene) {
 		super(scene);
 		
-		this.halfSphereSmall = new MyHalfSphere(this.scene, 15, 30, 30, true, 2);
-		this.halfSphereBig = new MyHalfSphere(this.scene, 16, 30, 30, false, 2);
-		this.lid = new MyLid(this.scene, 16, 15, 30);
+		this.x = -75;
+		this.y = 1;
+		this.z = -90;
+
+		this.halfSphereBig = new MyHalfSphere(this.scene, 10, 30, 30, false, 2);
+		this.halfSphereSmall = new MyHalfSphere(this.scene, 9, 30, 30, true, 2);
+		this.lid = new MyLid(this.scene, 10, 9, 30);
 
 		this.nestTexture = new CGFtexture(this.scene, 'images/nest.jpg');
         this.material = new CGFappearance(this.scene);
@@ -28,10 +32,10 @@ export class MyNest extends CGFobject {
 
 	display(){
 		this.scene.pushMatrix();
-			this.scene.translate(-75, 4, -90);
+			this.scene.translate(this.x, this.y + 1, this.z);
 			this.material.apply();
-			this.halfSphereSmall.display();
 			this.halfSphereBig.display();
+			this.halfSphereSmall.display();
 			this.lid.display();
 		this.scene.popMatrix();
 	}
