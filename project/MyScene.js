@@ -4,6 +4,7 @@ import { MyBird } from "./MyBird.js";
 import { MyTerrain } from "./MyTerrain.js";
 import { MyBirdEgg } from "./MyBirdEgg.js";
 import { MyNest } from "./MyNest.js";
+import { MyBillboard } from "./MyBillboard.js";
 
 /**
  * MyScene
@@ -43,6 +44,7 @@ export class MyScene extends CGFscene {
         this.panorama = new MyPanorama(this, "images/panorama4.jpg");
         
         this.bird = new MyBird(this);
+       
         this.nest = new MyNest(this);
 
         this.nEggs = 5;
@@ -52,6 +54,8 @@ export class MyScene extends CGFscene {
         for (var i = 0; i < this.nEggs; i++) {
             this.eggs.push(new MyBirdEgg(this, 1, 30, 30, this.bird));
         }
+
+        this.billboard = new MyBillboard(this, 0, 0, 0);
 
 
         this.enableTextures(true);
@@ -179,7 +183,7 @@ export class MyScene extends CGFscene {
         if (this.displayAxis) this.axis.display();
         
         
-        this.setCameraPosition();
+        //this.setCameraPosition();
 
         
         // ---- BEGIN Primitive drawing section
@@ -192,7 +196,6 @@ export class MyScene extends CGFscene {
 
         // Terrain
         this.pushMatrix();
-        this.pushMatrix();
         this.translate(0, -25, 0);
         this.terrain.display();
         this.popMatrix();
@@ -201,15 +204,21 @@ export class MyScene extends CGFscene {
 
         // Eggs
         for (var i = 0; i < this.eggs.length; i++) {
+            this.pushMatrix();
             this.eggs[i].display();
+            this.popMatrix();
+            this.setActiveShader(this.defaultShader);
         }
-
+        
+        this.pushMatrix();
         this.nest.display();
-
         this.popMatrix();
 
+        this.pushMatrix();
+        this.billboard.display();
+        this.popMatrix();
         this.setActiveShader(this.defaultShader);        
-
+        
         // ---- END Primitive drawing section
     }
 
