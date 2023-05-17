@@ -13,7 +13,7 @@ export class MyNest extends CGFobject {
 		super(scene);
 		
 		this.x = -75;
-		this.y = 1;
+		this.y = -4;
 		this.z = -90;
 
 		this.halfSphereBig = new MyHalfSphere(this.scene, 10, 30, 30, false, 2);

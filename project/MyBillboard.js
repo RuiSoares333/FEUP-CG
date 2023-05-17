@@ -16,10 +16,21 @@ export class MyBillboard extends CGFobject {
     this.scene.Quad = new MyQuadTree(this.scene);
   }
   initMaterials() {
-    this.scene.billboardTexture = new CGFtexture(this.scene, 'images/billboardtree.png');
+    let rand =  Math.floor(Math.random() * 3);
+    console.log(rand);
 
-    this.scene.billboardMaterial = new CGFappearance(this.scene);
-    this.scene.billboardMaterial.setTexture(this.scene.billboardTexture);
+    if(rand == 0) {
+      this.billboardTexture = new CGFtexture(this.scene, 'images/tree1.png');
+    }  
+    else if(rand == 1) {
+      this.billboardTexture = new CGFtexture(this.scene, 'images/tree2.png');
+    }  
+    else {
+      this.billboardTexture = new CGFtexture(this.scene, 'images/tree3.png');
+    }  
+      
+    this.billboardMaterial = new CGFappearance(this.scene);
+    this.billboardMaterial.setTexture(this.billboardTexture);  
   }
   display() {
 
@@ -39,7 +50,7 @@ export class MyBillboard extends CGFobject {
     this.scene.translate(this.x, this.y, this.z);
     this.scene.rotate(ang, axis[0], axis[1], 0);
     this.scene.scale(10, 10, 10);
-    this.scene.billboardMaterial.apply();
+    this.billboardMaterial.apply();
     this.scene.Quad.display();
     this.scene.popMatrix();
   }

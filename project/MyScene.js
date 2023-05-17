@@ -5,6 +5,7 @@ import { MyTerrain } from "./MyTerrain.js";
 import { MyBirdEgg } from "./MyBirdEgg.js";
 import { MyNest } from "./MyNest.js";
 import { MyBillboard } from "./MyBillboard.js";
+import { MyTreeGroupPatch } from "./MyTreeGroupPatch.js";
 
 /**
  * MyScene
@@ -55,8 +56,7 @@ export class MyScene extends CGFscene {
             this.eggs.push(new MyBirdEgg(this, 1, 30, 30, this.bird));
         }
 
-        this.billboard = new MyBillboard(this, 0, 0, 0);
-
+        this.TreeGroup = new MyTreeGroupPatch(this);
 
         this.enableTextures(true);
 
@@ -183,7 +183,7 @@ export class MyScene extends CGFscene {
         if (this.displayAxis) this.axis.display();
         
         
-        //this.setCameraPosition();
+        this.setCameraPosition();
 
         
         // ---- BEGIN Primitive drawing section
@@ -213,11 +213,8 @@ export class MyScene extends CGFscene {
         this.pushMatrix();
         this.nest.display();
         this.popMatrix();
-
-        this.pushMatrix();
-        this.billboard.display();
-        this.popMatrix();
-        this.setActiveShader(this.defaultShader);        
+        
+        this.TreeGroup.display();
         
         // ---- END Primitive drawing section
     }
