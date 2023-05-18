@@ -6,6 +6,7 @@ const toRadians = Math.PI / 180;
 export class MyBirdEgg extends CGFobject {
 
 	state = {
+		NEST: "the egg is inside the nest",
 		REST: "the egg is resting",
 		BIRD: "the egg is attached to the bird",
 		FALL: "the egg was dropped and is falling",
@@ -80,10 +81,9 @@ export class MyBirdEgg extends CGFobject {
 			this.x -= Math.sin(this.angle) * (this.velocity);
 			this.y -= 0.5;
 			this.z -= Math.cos(this.angle) * (this.velocity);
-			console.log(this.y);
+
 			if(this.y <= -4){
-				this.y = -4;
-				this.currentState = this.state.REST;
+				this.placeInNest();
 			}
 		}
 	}
@@ -106,6 +106,11 @@ export class MyBirdEgg extends CGFobject {
 
 	followBird(){
 		this.currentState = this.state.BIRD;
+	}
+
+	placeInNest(){
+		this.scene.nest.addEgg(this.bird.eggs.shift());
+		this.currentState = this.state.NEST;
 	}
 
 	isCloseToNest(){

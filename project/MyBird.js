@@ -3,6 +3,7 @@ import { MySphere } from "./shapes/MySphere.js";
 import { MyCone } from './shapes/MyCone.js';
 import { MyWing } from './shapes/MyWing.js';
 import { MyEgg } from './shapes/MyEgg.js';
+import { MyBirdEgg } from './MyBirdEgg.js';
 
 const wingStr = 0.2;
 const airRes = -0.01;
@@ -59,6 +60,16 @@ export class MyBird extends CGFobject {
 
         this.lTail = new MyWing(this.scene, this); // LEFT TAIL
         this.rTail = new MyWing(this.scene, this); // RIGHT TAIL
+        this.initEggs();
+    }
+
+    initEggs(){
+        this.nEggs = 5;
+        this.eggs = [];
+        
+        for (var i = 0; i < this.nEggs; i++) {
+            this.eggs.push(new MyBirdEgg(this.scene, 1, 30, 30, this));
+        }
     }
 
     drawShapes(){
@@ -66,84 +77,84 @@ export class MyBird extends CGFobject {
 
             // HEAD
             this.scene.pushMatrix();
-            this.scene.translate(0, 1, 0);
-            this.material.setTexture(this.bodyTexture);
-            this.material.apply();
-            this.head.display();
+                this.scene.translate(0, 1, 0);
+                this.material.setTexture(this.bodyTexture);
+                this.material.apply();
+                this.head.display();
             this.scene.popMatrix();
 
             // BEAK
             this.scene.pushMatrix();
-            this.scene.scale(0.5, 0.5, 1);
-            this.scene.translate(0, 2, -0.8);
-            this.scene.rotate(-90* toRadians, 1, 0, 0);
-            this.material.setTexture(this.beakTexture);
-            this.material.apply();
-            this.beak.display();
+                this.scene.scale(0.5, 0.5, 1);
+                this.scene.translate(0, 2, -0.8);
+                this.scene.rotate(-90* toRadians, 1, 0, 0);
+                this.material.setTexture(this.beakTexture);
+                this.material.apply();
+                this.beak.display();
             this.scene.popMatrix();
 
             // LEFT EYE
             this.scene.pushMatrix();
-            this.scene.scale(0.2, 0.2, 0.2);
-            this.scene.translate(-5, 5, 0);
-            this.material.setTexture(this.eyeTexture);
-            this.material.apply();
-            this.lEye.display();
+                this.scene.scale(0.2, 0.2, 0.2);
+                this.scene.translate(-5, 5, 0);
+                this.material.setTexture(this.eyeTexture);
+                this.material.apply();
+                this.lEye.display();
             this.scene.popMatrix();
 
             // RIGHT EYE
             this.scene.pushMatrix();
-            this.scene.scale(0.2, 0.2, 0.2);
-            this.scene.translate(5, 5, 0);
-            this.rEye.display();
+                this.scene.scale(0.2, 0.2, 0.2);
+                this.scene.translate(5, 5, 0);
+                this.rEye.display();
             this.scene.popMatrix();
 
             // TORSO
             this.scene.pushMatrix();
-            this.scene.translate(0, 0, 0.6);
-            this.material.setTexture(this.bodyTexture);
-            this.material.apply();
-            this.torso.display();
+                this.scene.translate(0, 0, 0.6);
+                this.material.setTexture(this.bodyTexture);
+                this.material.apply();
+                this.torso.display();
             this.scene.popMatrix();
 
             // LEFT WING
             this.scene.pushMatrix();
-            this.scene.translate(-0.5, 0, 0.5);
-            this.scene.rotate(180* toRadians, 1, 0, 0);
-            this.scene.rotate(-180* toRadians, 1, 0, 0);
-            this.scene.scale(-1, 1, 1);
-            this.material.setTexture(this.wingsTexture);
-            this.material.apply();
-            this.lWing.display();
+                this.scene.translate(-0.5, 0, 0.5);
+                this.scene.rotate(180* toRadians, 1, 0, 0);
+                this.scene.rotate(-180* toRadians, 1, 0, 0);
+                this.scene.scale(-1, 1, 1);
+                this.material.setTexture(this.wingsTexture);
+                this.material.apply();
+                this.lWing.display();
             this.scene.popMatrix();
 
             // RIGHT WING
             this.scene.pushMatrix();
-            this.scene.translate(0.5, 0, 0.5);
-            this.material.setTexture(this.wingsTexture);
-            this.material.apply();
-            this.rWing.display();
+                this.scene.translate(0.5, 0, 0.5);
+                this.material.setTexture(this.wingsTexture);
+                this.material.apply();
+                this.rWing.display();
             this.scene.popMatrix();
 
             // LEFT TAIL
             this.scene.pushMatrix();
-            this.scene.translate(0, 0, 2.5);
-            this.scene.rotate(-120* toRadians, 0, 1, 0);
-            this.scene.scale(0.6, 0.5, 0.5);
-            this.material.setTexture(this.wingsTexture);
-            this.material.apply();
-            this.lTail.display();
+                this.scene.translate(0, 0, 2.5);
+                this.scene.rotate(-120* toRadians, 0, 1, 0);
+                this.scene.scale(0.6, 0.5, 0.5);
+                this.material.setTexture(this.wingsTexture);
+                this.material.apply();
+                this.lTail.display();
             this.scene.popMatrix();
 
             // RIGHT TAIL
             this.scene.pushMatrix();
-            this.scene.scale(-1, 1, 1);
-            this.scene.translate(0, 0, 2.5);
-            this.scene.rotate(-120* toRadians, 0, 1, 0);
-            this.scene.scale(0.6, 0.5, 0.5);
-            this.material.setTexture(this.wingsTexture);
-            this.material.apply();
-            this.rTail.display();
+                this.scene.scale(-1, 1, 1);
+                this.scene.translate(0, 0, 2.5);
+                this.scene.rotate(-120* toRadians, 0, 1, 0);
+                this.scene.scale(0.6, 0.5, 0.5);
+                this.material.setTexture(this.wingsTexture);
+                this.material.apply();
+                this.rTail.display();
             this.scene.popMatrix();
 
         // ---- END Primitive drawing section
@@ -160,8 +171,8 @@ export class MyBird extends CGFobject {
             case this.state.DOWN:
                 if(this.displacement <= -3){
                     this.pickEgg();
-                    if(this.scene.eggs[0].eggDistance <= 7){
-                        this.scene.eggs[0].followBird();
+                    if(this.eggs.length > 0 &&this.eggs[0].eggDistance <= 7){
+                        this.eggs[0].followBird();
                     }
                     this.currentState = this.state.UP;
                     break;
@@ -192,10 +203,13 @@ export class MyBird extends CGFobject {
             this.scene.translate(this.x, this.y + this.displacement, this.z);
             this.scene.rotate(this.angle, 0, 1, 0);
             this.scene.scale(this.scene.scaleFactor, this.scene.scaleFactor, this.scene.scaleFactor);
-            this.scene.eggs[0].isCloseToNest();
             this.drawShapes();
         
         this.scene.popMatrix();
+
+        for (var i = 0; i < this.eggs.length; i++) {
+            this.eggs[i].display();
+        }
     }
 
 
@@ -210,7 +224,6 @@ export class MyBird extends CGFobject {
         return [x, 0, z];
     }
 
-    // set / update / handler
     setPosition(){
         this.x = 0;
         this.y = 3;
@@ -253,14 +266,14 @@ export class MyBird extends CGFobject {
 
     pickEgg(){
 
-        for (var i = 0; i < this.scene.eggs.length; i++) {
-            var xDis = Math.pow(Math.abs(this.x - this.scene.eggs[i].x), 2); 
-            var zDis = Math.pow(Math.abs(this.z - this.scene.eggs[i].z), 2); 
+        for (var i = 0; i < this.eggs.length; i++) {
+            var xDis = Math.pow(Math.abs(this.x - this.eggs[i].x), 2); 
+            var zDis = Math.pow(Math.abs(this.z - this.eggs[i].z), 2); 
             var total = Math.pow(xDis + zDis, 0.5);
 
-            this.scene.eggs[i].eggDistance = total;
+            this.eggs[i].eggDistance = total;
             if(total <= 7){
-                this.scene.eggs.sort((a,b) => a.eggDistance - b.eggDistance);
+                this.eggs.sort((a,b) => a.eggDistance - b.eggDistance);
             }
         }
 
@@ -295,35 +308,30 @@ export class MyBird extends CGFobject {
         // Rotation
         if(left && right){
             // do nothing
-        }
-        else if(left){
+        } else if(left){
             this.turn(angleTurn);
-        }
-        else if(right){
+        } else if(right){
             this.turn(-angleTurn);
         }
 
 
         if(this.currentState !== this.state.FLY) return;
 
-        // Egg Pickup
         if(pickUp){
             this.currentState = this.state.DOWN;
             this.pickEgg();
         }
 
         if(drop){
-            this.scene.eggs[0].drop();
+            this.eggs[0].drop();
         }
 
         // Up and Down
         if(up && down){
             // do nothing
-        }
-        else if(up){
+        } else if(up){
             this.fly(wingStr);
-        }
-        else if(down){
+        } else if(down){
             this.fly(-wingStr);
         }
 

@@ -48,14 +48,6 @@ export class MyScene extends CGFscene {
        
         this.nest = new MyNest(this);
 
-        this.nEggs = 5;
-        this.eggs = [];
-        
-
-        for (var i = 0; i < this.nEggs; i++) {
-            this.eggs.push(new MyBirdEgg(this, 1, 30, 30, this.bird));
-        }
-
         this.nTrees = 10;
         this.trees = [];
         
@@ -199,23 +191,17 @@ export class MyScene extends CGFscene {
         // Bird
         this.bird.display();
 
-
         // Terrain
         this.pushMatrix();
             this.translate(0, -24, 0);
             this.terrain.display();
         this.popMatrix();
-
         this.setActiveShader(this.defaultShader);
-
-
-        // Eggs
-        for (var i = 0; i < this.eggs.length; i++) {
-            this.eggs[i].display();
-        }
         
+        // Nest
         this.nest.display();
         
+        // Trees
         for (var i = 0; i < this.trees.length; i++) {
             this.trees[i].display();
         }

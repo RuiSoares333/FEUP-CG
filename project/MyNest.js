@@ -15,6 +15,8 @@ export class MyNest extends CGFobject {
 		this.x = -75;
 		this.y = 0;
 		this.z = -90;
+		this.defaultPos = [];
+		this.eggs = []
 
 		this.halfSphereBig = new MyHalfSphere(this.scene, 10, 30, 30, false, 2);
 		this.halfSphereSmall = new MyHalfSphere(this.scene, 9, 30, 30, true, 2);
@@ -38,15 +40,30 @@ export class MyNest extends CGFobject {
 			this.halfSphereBig.display();
 			this.halfSphereSmall.display();
 			this.lid.display();
+
+			for(var i = 0; i < this.eggs.length; i++){
+				this.eggs[i].display();
+			}
 		this.scene.popMatrix();
+
 	}
 
 	createDefaultPositions(){
-		this.defaultPos = [];
-		for (let x = -3; x <= 3; x += 3) {
-			for (let z = -3; z <= 3; z += 3) {
-			  this.defaultPos.push({ x, 0, z });
+		for (let x = -5; x <= 5; x += 5) {
+			for (let z = -5; z <= 5; z += 5) {
+			  this.defaultPos.push({ x, y: -2, z });
 			}
 		}
+	}
+
+
+	addEgg(newEgg){
+		let newPos = this.defaultPos.shift();
+		console.log(newPos)
+		newEgg.x = newPos.x;
+		newEgg.y = newPos.y;
+		newEgg.z = newPos.z;
+		this.eggs.push(newEgg);
+		console.log(this.eggs);
 	}
 }
