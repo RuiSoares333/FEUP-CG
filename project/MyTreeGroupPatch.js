@@ -9,25 +9,18 @@ export class MyTreeGroupPatch extends CGFobject {
 
     this.trees = [];
 
-    this.x = (Math.random() * 75) - 115;
-		this.y = -2;
-		this.z = (Math.random() * 75) - 120;
+    while(this.notCloseToNest());
+
     
     for(var i = 0; i < 9; i++){
-      var x = this.coords[i][0];
-      var y = this.coords[i][1];  
-      var z = this.coords[i][2];
-      this.trees.push(new MyBillboard(scene, x, y, z));
+      this.trees.push(new MyBillboard(scene));
     }
     
   }
 
   display(){
     for(var i = 0; i < 9; i++){
-      this.scene.pushMatrix();
-      // this.scene.translate(this.x, this.y, this.z);
-      this.trees[i].display(this.x, this.y, this.z);
-      this.scene.popMatrix();
+      this.trees[i].display(this.x + this.coords[i][0], this.y + this.coords[i][1], this.z + this.coords[i][2]);
     }
   }
 
@@ -48,6 +41,21 @@ export class MyTreeGroupPatch extends CGFobject {
   getRandomOffset(){
     var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
     return Math.random() * 4 * plusOrMinus;
+  }
+
+  notCloseToNest(){
+    this.x = (Math.random() * 75) - 115;
+		this.y = 0;
+		this.z = (Math.random() * 75) - 120;
+
+    var nestX = this.scene.nest.x;
+    var nestZ = this.scene.nest.z;
+
+    var xDis = this.x - nestX;
+    var zDis = this.z - nestZ;
+    
+    var totalDis = Math.pow(Math.pow(xDis,2) + Math.pow(zDis, 2) ,0.5);
+    return totalDis < 25;
   }
   
 }

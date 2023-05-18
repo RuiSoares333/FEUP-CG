@@ -13,12 +13,13 @@ export class MyNest extends CGFobject {
 		super(scene);
 		
 		this.x = -75;
-		this.y = -4;
+		this.y = 0;
 		this.z = -90;
 
 		this.halfSphereBig = new MyHalfSphere(this.scene, 10, 30, 30, false, 2);
 		this.halfSphereSmall = new MyHalfSphere(this.scene, 9, 30, 30, true, 2);
 		this.lid = new MyLid(this.scene, 10, 9, 30);
+		this.createDefaultPositions();
 
 		this.nestTexture = new CGFtexture(this.scene, 'images/nest.jpg');
         this.material = new CGFappearance(this.scene);
@@ -32,11 +33,20 @@ export class MyNest extends CGFobject {
 
 	display(){
 		this.scene.pushMatrix();
-			this.scene.translate(this.x, this.y + 1, this.z);
+			this.scene.translate(this.x, this.y - 2, this.z);
 			this.material.apply();
 			this.halfSphereBig.display();
 			this.halfSphereSmall.display();
 			this.lid.display();
 		this.scene.popMatrix();
+	}
+
+	createDefaultPositions(){
+		this.defaultPos = [];
+		for (let x = -3; x <= 3; x += 3) {
+			for (let z = -3; z <= 3; z += 3) {
+			  this.defaultPos.push({ x, 0, z });
+			}
+		}
 	}
 }

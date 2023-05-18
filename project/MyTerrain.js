@@ -7,6 +7,7 @@ export class MyTerrain extends CGFobject {
 		super(scene);
 		this.initBuffers();
 	}
+	
 	initBuffers() {
 		this.scene.plane = new MyPlane(this.scene,30);
 		
@@ -21,9 +22,8 @@ export class MyTerrain extends CGFobject {
 		this.scene.shader.setUniformsValues({ uSamplerHeight: 2 });
 		this.scene.shader.setUniformsValues({ uSamplerAltimetry: 3 });
 		this.scene.shader.setUniformsValues({ uSamplerOriginalHeight: 4 });
-
-
 	}
+
 	display() {
 		this.scene.setActiveShader(this.scene.shader);
 		this.scene.texture.bind(1);
@@ -32,11 +32,9 @@ export class MyTerrain extends CGFobject {
 		this.scene.ogTerrainMap.bind(4);		
 
 		this.scene.pushMatrix();
-		this.scene.scale(400,400,400);
-		this.scene.rotate(-Math.PI/2.0,1,0,0);
-		//this.scene.setActiveShader(this.terrainSh);
-		this.scene.plane.display();
-		//this.scene.setActiveShader(this.defaultShader);
+			this.scene.scale(400,400,400);
+			this.scene.rotate(-Math.PI/2.0,1,0,0);
+			this.scene.plane.display();
 		this.scene.popMatrix();
 
 	}

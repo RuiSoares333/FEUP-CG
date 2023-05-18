@@ -257,7 +257,6 @@ export class MyBird extends CGFobject {
             var xDis = Math.pow(Math.abs(this.x - this.scene.eggs[i].x), 2); 
             var zDis = Math.pow(Math.abs(this.z - this.scene.eggs[i].z), 2); 
             var total = Math.pow(xDis + zDis, 0.5);
-            console.log(total);
 
             this.scene.eggs[i].eggDistance = total;
             if(total <= 7){

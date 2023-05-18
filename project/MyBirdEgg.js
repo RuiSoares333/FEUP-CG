@@ -71,28 +71,27 @@ export class MyBirdEgg extends CGFobject {
 			this.z = this.bird.z;
 		}
 		else if(this.currentState === this.state.FALL){
-			if(this.y <= 0){
-				this.y = 0;
-				this.currentState = this.state.REST;
-				return;
-			}
-			if(this.velocity - 0.1 > 0){
-				this.velocity -= 0.1;
+
+			if(this.velocity - 0.005 > 0){
+				this.velocity -= 0.005;
 			} else {
 				this.velocity = 0;
 			}
 			this.x -= Math.sin(this.angle) * (this.velocity);
 			this.y -= 0.5;
 			this.z -= Math.cos(this.angle) * (this.velocity);
+			console.log(this.y);
+			if(this.y <= -4){
+				this.y = -4;
+				this.currentState = this.state.REST;
+			}
 		}
 	}
 
 	display(){
 		this.scene.pushMatrix();
 
-
 			this.dealWithState();
-
 
 			this.scene.translate(this.x, this.y, this.z);
 			this.scene.rotate(this.rotation * toRadians, 0, 0, 0);
@@ -121,7 +120,7 @@ export class MyBirdEgg extends CGFobject {
 
 		var totalDist = Math.pow(xDis + zDis, 0.5);
 
-		return totalDist <= 5.5;
+		return totalDist <= 6.5;
 	}
 
 	drop(){

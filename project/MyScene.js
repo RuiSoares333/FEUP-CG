@@ -4,8 +4,8 @@ import { MyBird } from "./MyBird.js";
 import { MyTerrain } from "./MyTerrain.js";
 import { MyBirdEgg } from "./MyBirdEgg.js";
 import { MyNest } from "./MyNest.js";
-import { MyBillboard } from "./MyBillboard.js";
 import { MyTreeGroupPatch } from "./MyTreeGroupPatch.js";
+import { MyTreeRowPatch } from "./MyTreeRowPatch.js";
 
 /**
  * MyScene
@@ -56,7 +56,13 @@ export class MyScene extends CGFscene {
             this.eggs.push(new MyBirdEgg(this, 1, 30, 30, this.bird));
         }
 
-        this.TreeGroup = new MyTreeGroupPatch(this);
+        this.nTrees = 10;
+        this.trees = [];
+        
+        for (var i = 0; i < this.nTrees; i++) {
+            var treeGroup = i % 2 ? new MyTreeGroupPatch(this) : new MyTreeRowPatch(this);
+            this.trees.push(treeGroup);
+        }
 
         this.enableTextures(true);
 
@@ -196,25 +202,23 @@ export class MyScene extends CGFscene {
 
         // Terrain
         this.pushMatrix();
-        this.translate(0, -25, 0);
-        this.terrain.display();
+            this.translate(0, -24, 0);
+            this.terrain.display();
         this.popMatrix();
+
         this.setActiveShader(this.defaultShader);
 
 
         // Eggs
         for (var i = 0; i < this.eggs.length; i++) {
-            this.pushMatrix();
             this.eggs[i].display();
-            this.popMatrix();
-            this.setActiveShader(this.defaultShader);
         }
         
-        this.pushMatrix();
         this.nest.display();
-        this.popMatrix();
         
-        this.TreeGroup.display();
+        for (var i = 0; i < this.trees.length; i++) {
+            this.trees[i].display();
+        }
         
         // ---- END Primitive drawing section
     }
