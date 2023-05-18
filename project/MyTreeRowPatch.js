@@ -25,14 +25,10 @@ export class MyTreeRowPatch extends CGFobject {
   }
 
   getCoordinates(){
-    this.coords = [
-      [-15 + this.getRandomOffset() , 0, this.getRandomOffset()],
-      [-10 + this.getRandomOffset(), 0, this.getRandomOffset()],
-      [-5 + this.getRandomOffset(), 0, this.getRandomOffset()],
-      [0 + this.getRandomOffset(), 0, this.getRandomOffset()],
-      [5 + this.getRandomOffset(), 0, this.getRandomOffset()],
-      [10 + this.getRandomOffset(), 0, this.getRandomOffset()],
-    ];
+    this.coords = [];
+    for(var i = -15; i <= 10; i += 5){
+      this.coords.push([i + this.getRandomOffset(), 0, this.getRandomOffset()]);
+    }
   }
 
   getRandomOffset(){

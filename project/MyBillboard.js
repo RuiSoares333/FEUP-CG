@@ -10,7 +10,7 @@ export class MyBillboard extends CGFobject {
   }
 
   initBuffers() {
-    this.scene.Quad = new MyQuadTree(this.scene);
+    this.quad = new MyQuadTree(this.scene);
   }
 
   initMaterials() {
@@ -28,6 +28,7 @@ export class MyBillboard extends CGFobject {
       
     this.billboardMaterial = new CGFappearance(this.scene);
     this.billboardMaterial.setTexture(this.billboardTexture);  
+    this.billboardMaterial.setAmbient(3, 3, 3, 1);
   }
 
   display(x, y, z) {
@@ -48,7 +49,7 @@ export class MyBillboard extends CGFobject {
       this.scene.rotate(ang, axis[0], axis[1], 0);
       this.scene.scale(10, 10, 10);
       this.billboardMaterial.apply();
-      this.scene.Quad.display();
+      this.quad.display();
     this.scene.popMatrix();
   }
 }

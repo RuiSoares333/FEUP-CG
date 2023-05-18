@@ -9,7 +9,7 @@ export class MyPanorama {
     this.material.setEmission(1, 1, 1, 1);
     this.material.setTexture(this.texture);
 
-    this.sphere = new MySphere(this.scene, 200, 50, 50, true, 1);
+    this.sphere = new MySphere(this.scene, 300, 50, 50, true, 1);
   }
 
   // alterar o centro do panorama para onde está a camera
