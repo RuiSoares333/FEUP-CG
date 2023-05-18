@@ -22,7 +22,8 @@ export class MyBirdEgg extends CGFobject {
 		this.y = -4;
 		this.z = (Math.random() * 75) - 120;
 		this.velocity = 0;
-		this.rotation = Math.floor(Math.random()*360);
+		this.rotation = Math.floor(Math.random()*360) * toRadians;
+		console.log(this.rotation);
 		this.currentState = this.state.REST;
 
 		this.bird = bird;
@@ -57,14 +58,6 @@ export class MyBirdEgg extends CGFobject {
 		this.scene.eggShader = this.eggShader;
 	}
 
-	updateBuffers() {
-
-	}
-
-	update(){
-
-    }
-
 	dealWithState(){
 		if(this.currentState === this.state.BIRD){
 			this.x = this.bird.x;
@@ -94,7 +87,7 @@ export class MyBirdEgg extends CGFobject {
 			this.dealWithState();
 
 			this.scene.translate(this.x, this.y, this.z);
-			this.scene.rotate(this.rotation * toRadians, 0, 0, 0);
+			this.scene.rotate(this.rotation, 0, 1, 0);
 			this.scene.rotate(- Math.PI / 2, 1, 0, 0);
 			this.scene.scale(0.7,0.7,0.7);
 			this.appearance.apply();

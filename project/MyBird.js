@@ -64,7 +64,7 @@ export class MyBird extends CGFobject {
     }
 
     initEggs(){
-        this.nEggs = 5;
+        this.nEggs = 9;
         this.eggs = [];
         
         for (var i = 0; i < this.nEggs; i++) {

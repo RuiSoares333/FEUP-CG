@@ -58,8 +58,9 @@ export class MyNest extends CGFobject {
 
 
 	addEgg(newEgg){
-		let newPos = this.defaultPos.shift();
-		console.log(newPos)
+		let defaultPosNr = Math.floor(Math.random() * this.defaultPos.length);
+		let newPos = this.defaultPos.splice(defaultPosNr, 1)[0];
+
 		newEgg.x = newPos.x;
 		newEgg.y = newPos.y;
 		newEgg.z = newPos.z;
