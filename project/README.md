@@ -1,6 +1,10 @@
 # CG 2022/2023
 
 ## Group T03G01
+| Name             | Number    |
+| ---------------- | --------- |
+| Carlos Sousa         | 202005954 |
+| Rui Soares         | 202103631 |
 
 ## Project prints
 
